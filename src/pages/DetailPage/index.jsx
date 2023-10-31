@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../api/const";
 
 const DetailPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [pokemon, setPokemon] = useState(null);
   const { id: pokemonName } = useParams();
 
   const url = BASE_URL + pokemonName;
@@ -35,10 +37,12 @@ const DetailPage = () => {
           stats: formatPokemonStats(stats),
           damamageRelations,
         };
-        console.log(formattedPokemonData);
+        setPokemon(formattedPokemonData);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
