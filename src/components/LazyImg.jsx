@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const LazyImg = ({ src, alt }) => {
   const [isLoading, setIsLoading] = useState(true);
-
-  const imgRef = useRef(false);
 
   const [opacity, setOpacity] = useState("opacity-0");
 
@@ -23,7 +21,6 @@ const LazyImg = ({ src, alt }) => {
         </div>
       )}
       <img
-        ref={imgRef}
         src={src}
         alt={alt}
         width="100%"

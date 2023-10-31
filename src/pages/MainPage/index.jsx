@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PokeCard from "../../components/PokeCard";
 import AutoComplete from "../../components/AutoComplete";
+import { BASE_URL } from "../../api/const";
 
 const MainPage = () => {
   // 모든 포켓몬 데이터
@@ -10,7 +11,7 @@ const MainPage = () => {
   const [displayedPokemons, setDisplayedPokemon] = useState([]);
 
   const limitNumber = 20;
-  const url = "https://pokeapi.co/api/v2/pokemon/?limit=1008&offset=0";
+  const url = BASE_URL + "?limit=1008&offset=0";
 
   const filterDisplayedPokemonData = (
     allPokemonsData,
