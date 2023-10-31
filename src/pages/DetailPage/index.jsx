@@ -157,7 +157,7 @@ const DetailPage = () => {
               <Link to="/">
                 <ArrowLeft className="w-6 h-8 text-zinc-200" />
               </Link>
-              <h1 className="text-zinc-200 font-bold text-xl capitalize">
+              <h1 className="text-zinc-200 font-bold text-2xl capitalize pokemon-font tracking-[0.25em]">
                 {pokemon.name}
               </h1>
             </div>
@@ -234,7 +234,7 @@ const DetailPage = () => {
           </div>
 
           <h2 className={`text-base font-semibold ${text}`}>설명</h2>
-          <p className="text-md leading-4 font-sans text-zinc-200 max-w-[30rem] text-center">
+          <p className="text-md leading-4  text-zinc-200 max-w-[30rem] text-center">
             {pokemon.description}
           </p>
 
