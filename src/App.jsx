@@ -1,35 +1,26 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import PokeCard from "./components/PokeCard";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
+import "./App.css";
+import DetailPage from "./pages/DetailPage";
+import GeneralLayout from "./components/GeneralLayout";
 
 function App() {
-  const url = "https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0";
-  const [pokemons, setPokemons] = useState([]);
-
-  const fetchPokeData = async () => {
-    try {
-      const response = await axios.get(url);
-
-      setPokemons(response.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPokeData();
-  }, []);
+  const routerData = [
+    { id: 0, path: "/", element: <MainPage /> },
+    { id: 1, path: "/pokemon/:id", element: <DetailPage /> },
+  ];
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        {routerData.map(({ id, path, element }) => (
+          <Route
+            path={path}
+            element={<GeneralLayout>{element}</GeneralLayout>}
+            key={id}
+          />
+        ))}
+      </Routes>
     </div>
   );
 }
