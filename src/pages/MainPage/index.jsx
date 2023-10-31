@@ -4,21 +4,39 @@ import PokeCard from "../../components/PokeCard";
 import useDebounce from "../../hooks/useDebounce";
 
 const MainPage = () => {
-  const [pokemons, setPokemons] = useState([]);
+  // 모든 포켓몬 데이터
+  const [allPokemons, setAllPokemons] = useState([]);
+  // 실제로 보여주는 포켓몬 리스트
+  const [displayedPokemons, setDisplayedPokemon] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
-
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const [offset, setOffset] = useState(0);
-  const limit = 20;
 
-  const fetchPokeData = async (isFirstFetch) => {
+  const limitNumber = 20;
+  const url = "https://pokeapi.co/api/v2/pokemon/?limit=1008&offset=0";
+
+  const filterDisplayedPokemonData = (
+    allPokemonsData,
+    displayedPokemons = []
+  ) => {
+    const limit = displayedPokemons.length + limitNumber;
+    const array = allPokemonsData.filter((_, idx) => idx + 1 <= limit);
+    return array;
+  };
+
+  const fetchPokeData = async () => {
     try {
-      const offsetValue = isFirstFetch ? 0 : offset + limit;
-      const url = `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offsetValue}`;
-      const response = await axios.get(url);
+      const { data } = await axios.get(url);
 
-      setPokemons([...pokemons, ...response.data.results]);
-      setOffset(offsetValue);
+      const allPokemonsResponse = data.results;
+
+      // 모든 포켓몬 저장
+      setAllPokemons(allPokemonsResponse);
+
+      //   첫 렌더 시 보여줄 리스트
+      const filteredPokemons = filterDisplayedPokemonData(allPokemonsResponse);
+
+      setDisplayedPokemon(filteredPokemons);
     } catch (error) {
       console.error(error);
     }
@@ -28,39 +46,45 @@ const MainPage = () => {
     fetchPokeData(true);
   }, []);
 
-  const searchInputHandler = async (searchTerm) => {
-    if (searchTerm.length > 0) {
-      try {
-        const response = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon/" + searchTerm
-        );
-        const pokemonData = {
-          url: "https://pokeapi.co/api/v2/pokemon/" + response.data.id,
-          name: searchTerm,
-        };
-        setPokemons([pokemonData]);
-      } catch (error) {
-        setPokemons([]);
-        console.error(error);
-      }
-    } else {
-      // 검색했다가 지우면 처음 나와야하는 포켓몬들 보여주기
-      fetchPokeData(true);
-    }
+  const pokemonGetMoreHandler = () => {
+    const filteredPokemons = filterDisplayedPokemonData(
+      allPokemons,
+      displayedPokemons
+    );
+
+    setDisplayedPokemon(filteredPokemons);
   };
 
-  useEffect(() => {
-    searchInputHandler(debouncedSearchTerm);
-  }, [debouncedSearchTerm]);
+  //   const searchInputHandler = async (searchTerm) => {
+  //     if (searchTerm.length > 0) {
+  //       try {
+  //         const response = await axios.get(
+  //           "https://pokeapi.co/api/v2/pokemon/" + searchTerm
+  //         );
+  //         const pokemonData = {
+  //           url: "https://pokeapi.co/api/v2/pokemon/" + response.data.id,
+  //           name: searchTerm,
+  //         };
+  //         setPokemons([pokemonData]);
+  //       } catch (error) {
+  //         setPokemons([]);
+  //         console.error(error);
+  //       }
+  //     } else {
+  //       // 검색했다가 지우면 처음 나와야하는 포켓몬들 보여주기
+  //       fetchPokeData(true);
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     searchInputHandler(debouncedSearchTerm);
+  //   }, [debouncedSearchTerm]);
 
   return (
     <article className="pt-6">
       <header className="flex flex-col gap-2 w-full px-4 z-50">
         <div className="relative z-50">
-          <form
-            className="relative flex justify-center items-center w-[20.5rem] h-6 rounded-lg m-auto"
-            onSubmit={searchInputHandler}
-          >
+          <form className="relative flex justify-center items-center w-[20.5rem] h-6 rounded-lg m-auto">
             <input
               type="text"
               value={searchTerm}
@@ -79,8 +103,8 @@ const MainPage = () => {
       </header>
       <section className="pt-6 flex flex-col justify-content items-center overflow-auto z-0">
         <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl">
-          {pokemons.length > 0 ? (
-            pokemons.map(({ url, name }) => (
+          {displayedPokemons.length > 0 ? (
+            displayedPokemons.map(({ url, name }) => (
               <PokeCard url={url} name={name} key={name} />
             ))
           ) : (
@@ -90,14 +114,17 @@ const MainPage = () => {
           )}
         </div>
       </section>
-      <div className="text-center">
-        <button
-          onClick={() => fetchPokeData(false)}
-          className="bg-slate-800 px-6 py-2 my-4 text-base rounded-lg font-bold text-white"
-        >
-          더보기
-        </button>
-      </div>
+      {allPokemons.length > displayedPokemons.length &&
+        displayedPokemons.length !== 1 && (
+          <div className="text-center">
+            <button
+              onClick={pokemonGetMoreHandler}
+              className="bg-slate-800 px-6 py-2 my-4 text-base rounded-lg font-bold text-white"
+            >
+              더보기
+            </button>
+          </div>
+        )}
     </article>
   );
 };
