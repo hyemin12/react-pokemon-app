@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import LazyImg from "./LazyImg";
 
-const PokeCard = ({ url, name }) => {
+const PokeCard = ({ url }) => {
   const [pokemon, setPokemon] = useState();
   const fetchPokeDetailData = async () => {
     try {
@@ -40,7 +40,8 @@ const PokeCard = ({ url, name }) => {
   return (
     <>
       {pokemon && (
-        <div
+        <Link
+          to={"/pokemon/" + pokemon.name}
           className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center`}
         >
           <div
@@ -60,7 +61,7 @@ const PokeCard = ({ url, name }) => {
           >
             {pokemon.name}
           </div>
-        </div>
+        </Link>
       )}
     </>
   );
