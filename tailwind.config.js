@@ -32,6 +32,7 @@ export default {
         steel: "#B7B7CE",
         fairy: "#D685AD",
         none: "#BfBfBf",
+        blackRgba: "rgba(0, 0, 0, 0.54)",
       },
     },
   },
