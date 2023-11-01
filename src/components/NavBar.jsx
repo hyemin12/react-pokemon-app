@@ -9,6 +9,13 @@ import {
   signOut,
 } from "firebase/auth";
 import app from "../firebase";
+import {
+  getUserDataFromLocalStorage,
+  removeUserDataToLocalStorage,
+  saveUserDataToLocalStorage,
+} from "../storage/UserDataHander";
+
+const initialUserData = getUserDataFromLocalStorage();
 
 const NavBar = () => {
   const auth = getAuth(app);
@@ -18,7 +25,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(initialUserData);
 
   useEffect(() => {
     // 로그인 여부 확인 후 페이지 이동
@@ -31,20 +38,22 @@ const NavBar = () => {
     });
     return () => unsubscribe();
   }, [pathname]);
-  console.log(userData);
 
   const authHandler = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result.user);
         setUserData(result.user);
+        saveUserDataToLocalStorage(result.user);
       })
       .catch((error) => console.error(error));
   };
 
   const logoutHandler = () => {
     signOut(auth)
-      .then(setUserData({}))
+      .then(() => {
+        setUserData({});
+        removeUserDataToLocalStorage();
+      })
       .catch((error) => {
         alert(error.message);
       });
