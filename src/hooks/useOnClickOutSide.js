@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const useOnClickOutSide = (ref, callback) => {
   useEffect(() => {
-    const listner = (e) => {
+    const listener = (e) => {
       // 1. 어디 클릭하는지 구분
       // 모달 창 클릭하면 return
       // 모달 창 밖 클릭하면 callback 함수 실행
@@ -13,9 +13,9 @@ const useOnClickOutSide = (ref, callback) => {
       }
       callback();
     };
-    document.addEventListener("mousedown", listner);
+    document.addEventListener("mousedown", listener);
     return () => {
-      document.removeEventListener("mousedown");
+      document.removeEventListener("mousedown", listener);
     };
   }, [ref, callback]);
 };
