@@ -42,7 +42,7 @@ const PokeCard = ({ url }) => {
       {pokemon && (
         <Link
           to={"/pokemon/" + pokemon.name}
-          className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center`}
+          className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center grow`}
         >
           <div
             className={`${text} h-[1.5rem] text-xs w-full pt-1 px-2  text-right rounded-t-lg`}

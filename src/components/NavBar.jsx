@@ -68,17 +68,14 @@ const NavBar = () => {
   });
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between items-center px-[36px] tracking-[16px] z-[100] ${
+      className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]  ${
         show ? "bg-[#090b13]" : "bg-transparent"
       }`}
     >
-      <Link to="/" className="w-[50px] mt-[4px] p-0">
-        <h1 className="uppercase">pokemon</h1>
-        <img
-          className="w-full cursor-pointer"
-          alt="Poke logo"
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
-        />
+      <Link to="/" className=" mt-[4px] p-0">
+        <h1 className="uppercase pokemon-font text-4xl tracking-tight leading-[40px]">
+          poke app
+        </h1>
       </Link>
 
       {pathname === "/login" ? (
