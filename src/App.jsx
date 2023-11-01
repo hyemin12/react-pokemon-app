@@ -1,25 +1,30 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
-import "./App.css";
 import DetailPage from "./pages/DetailPage";
-import GeneralLayout from "./components/GeneralLayout";
+import LoginPage from "./pages/LoginPage";
+import "./App.css";
+import NavBar from "./components/NavBar";
+
+const Layout = () => {
+  return (
+    <>
+      <NavBar />
+      <br />
+      <br />
+      <Outlet />
+    </>
+  );
+};
 
 function App() {
-  const routerData = [
-    { id: 0, path: "/", element: <MainPage /> },
-    { id: 1, path: "/pokemon/:id", element: <DetailPage /> },
-  ];
-
   return (
     <div className="App">
       <Routes>
-        {routerData.map(({ id, path, element }) => (
-          <Route
-            path={path}
-            element={<GeneralLayout>{element}</GeneralLayout>}
-            key={id}
-          />
-        ))}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="pokemon/:id" element={<DetailPage />} />
+          <Route path="login" element={<LoginPage />} />
+        </Route>
       </Routes>
     </div>
   );
