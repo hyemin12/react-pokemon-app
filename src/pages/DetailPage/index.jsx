@@ -13,7 +13,7 @@ import BaseStat from "../../components/BaseStat";
 import DamageModal from "../../components/DamageModal";
 
 const DetailPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [pokemon, setPokemon] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id: pokemonName } = useParams();
@@ -101,6 +101,7 @@ const DetailPage = () => {
     };
   };
   useEffect(() => {
+    setIsLoading(true);
     fetchPokemonData();
   }, [pokemonName]);
 
@@ -176,6 +177,7 @@ const DetailPage = () => {
               loading="lazy"
               alt={pokemon.name}
               className={`object-contain h-full cursor-pointer`}
+              onClick={() => setIsModalOpen(true)}
             />
           </div>
         </section>
@@ -247,9 +249,10 @@ const DetailPage = () => {
           </div>
         </section>
       </div>
-      {!isModalOpen && (
+      {isModalOpen && (
         <DamageModal
           damages={pokemon?.damageRelations}
+          open={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
       )}
