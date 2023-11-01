@@ -10,10 +10,12 @@ import { GreaterThan } from "../../assets/GreaterThan";
 import { LessThan } from "../../assets/LessThan";
 import Type from "../../components/Type";
 import BaseStat from "../../components/BaseStat";
+import DamageModal from "../../components/DamageModal";
 
 const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pokemon, setPokemon] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id: pokemonName } = useParams();
 
   const url = BASE_URL + pokemonName;
@@ -27,7 +29,7 @@ const DetailPage = () => {
 
         const nextAndPrevPokemon = await getNextAndPrevPokemon(id);
 
-        const damamageRelations = await Promise.all(
+        const damageRelations = await Promise.all(
           types.map(async (i) => {
             const type = await axios.get(i.type.url);
             return type.data.damage_relations;
@@ -43,7 +45,7 @@ const DetailPage = () => {
           height: height / 10,
           abilities: formatPokemonAbilities(abilities),
           stats: formatPokemonStats(stats),
-          damamageRelations,
+          damageRelations,
           sprites: formatPokemonSprities(sprites),
           description: await getPokemonDescription(id),
         };
@@ -245,10 +247,11 @@ const DetailPage = () => {
           </div>
         </section>
       </div>
-      {pokemon?.damamageRelations && (
-        <div className="w-10/12">
-          <h2>데미지 정보</h2>
-        </div>
+      {!isModalOpen && (
+        <DamageModal
+          damages={pokemon?.damageRelations}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </article>
   );
