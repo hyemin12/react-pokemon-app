@@ -42,6 +42,14 @@ const NavBar = () => {
       .catch((error) => console.error(error));
   };
 
+  const logoutHandler = () => {
+    signOut(auth)
+      .then(setUserData({}))
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   useEffect(() => {
     const listener = () => {
       window.screenY > 50 ? setShow(true) : setShow(true);
@@ -72,15 +80,18 @@ const NavBar = () => {
           로그인
         </a>
       ) : (
-        <div className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer hover: ">
+        <div
+          className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer "
+          onClick={logoutHandler}
+        >
           <img
             className="w-full h-full rounded-[50%]"
             alt="user photo"
             src={userData?.photoURL}
           />
 
-          <div className="absolute t-[48px] r-0 bg-[19,19,19] border peer-hover:visible">
-            <span> Sign out</span>
+          <div className="absolute t-[48px] r-0 bg-[19,19,19] border opacity-0 peer-hover:visible">
+            <span>로그아웃</span>
           </div>
         </div>
       )}
