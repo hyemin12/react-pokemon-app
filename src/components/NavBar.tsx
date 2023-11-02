@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import {
+  User,
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
@@ -25,7 +25,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState<User | null>(initialUserData);
 
   useEffect(() => {
     // 로그인 여부 확인 후 페이지 이동
@@ -53,8 +53,9 @@ const NavBar = () => {
   const logoutHandler = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
+        setUserData(null);
         removeUserDataToLocalStorage();
+        navigate("/login");
       })
       .catch((error) => {
         alert(error.message);
@@ -89,14 +90,16 @@ const NavBar = () => {
         </a>
       ) : (
         <div
-          className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer "
+          className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer cursor-pointer "
           onClick={logoutHandler}
         >
-          <img
-            className="w-full h-full rounded-[50%]"
-            alt="user photo"
-            src={userData?.photoURL}
-          />
+          {userData?.photoURL && (
+            <img
+              className="w-full h-full rounded-[50%]"
+              alt="user photo"
+              src={userData?.photoURL}
+            />
+          )}
 
           <div className="absolute t-[48px] r-0 bg-[19,19,19] border opacity-0 peer-hover:visible">
             <span>로그아웃</span>
