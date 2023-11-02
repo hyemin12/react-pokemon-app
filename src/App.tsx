@@ -4,14 +4,16 @@ import DetailPage from "./pages/DetailPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 import "./App.css";
+import Footer from "./components/Footer";
 
 const Layout = () => {
   return (
     <>
       <NavBar />
-      <div id="main" className="pt-[70px]">
+      <div id="main" className="pt-[70px] mb-4">
         <Outlet />
       </div>
+      <Footer />
     </>
   );
 };

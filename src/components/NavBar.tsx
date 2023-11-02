@@ -14,6 +14,7 @@ import {
   removeUserDataToLocalStorage,
   saveUserDataToLocalStorage,
 } from "../storage/UserDataHander";
+import Logo from "./Logo";
 
 const initialUserData = getUserDataFromLocalStorage();
 
@@ -75,12 +76,7 @@ const NavBar = () => {
         show ? "bg-[#090b13]" : "bg-logoBlue"
       }`}
     >
-      <Link to="/" className=" mt-[4px] p-0">
-        <h1 className="uppercase pokemon-font text-4xl text-primary tracking-tight leading-[40px]">
-          poke app
-        </h1>
-      </Link>
-
+      <Logo />
       {pathname === "/login" ? (
         <a
           className="bg-blackRgba py-[8px] px-[16px] border-1 border-solid border-[#f9f9f9] rounded-[4px] text-white  uppercase tracking-widest hover:bg-primary hover:text-black border-transparent duration-200 ease-in cursor-pointer"

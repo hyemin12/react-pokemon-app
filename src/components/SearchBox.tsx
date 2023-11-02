@@ -9,7 +9,7 @@ interface AutoCompleteProps {
 }
 
 // 자동 완성 기능 (프론트에서 먼저 모든 포켓몬의 데이터를 가지고 있어야 함)
-const AutoComplete = ({
+const SearchBox = ({
   allPokemons,
   setDisplayedPokemons,
 }: AutoCompleteProps) => {
@@ -41,19 +41,19 @@ const AutoComplete = ({
   return (
     <div className="relative z-50">
       <form
-        className="relative flex justify-center items-center w-[20.5rem] h-6 rounded-lg m-auto"
+        className="relative flex justify-center items-center w-[30.5rem] h-10 rounded-lg m-auto"
         onSubmit={submitHandler}
       >
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="text-xs w-[20.5rem] h-6 px-2 py-1 bg-[hsl(214,13%,47%)] rounded-lg text-gray-300 text-center"
+          className="text-lg w-[30.5rem] h-10 px-2 py-1 bg-[hsl(214,13%,47%)] rounded-2xl  text-gray-300 text-center"
         />
 
         <button
           type="submit"
-          className="text-xs bg-slate-900  text-slate-300 w-[2.5rem] h-6 px-2 py-1 rounded-r-lg text-center absolute right-0 hover:bg-slate-700"
+          className="text-xs bg-slate-900  text-slate-300 w-[3rem] h-10 px-2 py-1 rounded-r-2xl text-center absolute right-0 hover:bg-slate-700"
         >
           검색
         </button>
@@ -88,4 +88,4 @@ const AutoComplete = ({
   );
 };
 
-export default AutoComplete;
+export default SearchBox;

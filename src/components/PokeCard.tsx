@@ -44,7 +44,7 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
       {pokemon && (
         <Link
           to={"/pokemon/" + pokemon.name}
-          className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center grow`}
+          className={`box-border rounded-lg ${border} w-[8.5rem] h-[9rem] z-0 bg-slate-800 justify-between items-center grow hover:-translate-y-2 duration-300`}
         >
           <div
             className={`${text} h-[1.5rem] text-xs w-full pt-1 px-2  text-right rounded-t-lg`}
@@ -53,7 +53,7 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
           </div>
           <div className={`w-full f-6 flex items-center justify-center`}>
             <div
-              className={`box-border relative flex w-full h-[5.5rem] basis justify-center items-center`}
+              className={`box-border relative flex w-full h-[6rem] basis justify-center items-center`}
             >
               <LazyImg src={img} alt={pokemon.name} />
             </div>

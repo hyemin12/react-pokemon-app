@@ -27,6 +27,7 @@ import {
   PokemonDescription,
 } from "../../types/PokemonDescription";
 import { PokemonData } from "../../types/PokemonData";
+import LoaderPokeball from "../../components/LoaderPokeball";
 
 interface NextAndPrevPokemon {
   next: string | undefined;
@@ -152,12 +153,7 @@ const DetailPage = () => {
   const bg = `bg-${pokemon?.types?.[0]}`;
   const text = "text-" + pokemon?.types?.[0];
 
-  if (isLoading)
-    return (
-      <div className="absolute h-auto w-auto top-1/3 -translate-x-1/2 left-1/2 z-50">
-        <Loading className="w-12 h-12 z-50 animate-spin text-slate-900" />
-      </div>
-    );
+  if (isLoading) return <LoaderPokeball />;
   if (!isLoading && !pokemon) return <div>NotFound</div>;
 
   if (!isLoading && pokemon) {
@@ -190,7 +186,7 @@ const DetailPage = () => {
                 <Link to="/">
                   <ArrowLeft className="w-6 h-8 text-zinc-200" />
                 </Link>
-                <h1 className="text-zinc-200 font-bold text-2xl capitalize pokemon-font tracking-[0.25em]">
+                <h1 className="text-zinc-200 font-bold text-2xl capitalize font-PocketMonk tracking-[0.25em]">
                   {pokemon.name}
                 </h1>
               </div>

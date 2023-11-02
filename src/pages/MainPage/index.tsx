@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PokeCard from "../../components/PokeCard";
-import AutoComplete from "../../components/AutoComplete";
+import SearchBox from "../../components/SearchBox";
 import { BASE_URL } from "../../api/const";
 import { PokemonData, PokemonNameAndUrl } from "../../types/PokemonData";
+import LoaderPokeball from "../../components/LoaderPokeball";
+import Button from "../../components/Button";
 
 const MainPage = () => {
   // 모든 포켓몬 데이터
   const [allPokemons, setAllPokemons] = useState<PokemonNameAndUrl[]>([]);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // 실제로 보여주는 포켓몬 리스트
   const [displayedPokemons, setDisplayedPokemon] = useState<
@@ -22,6 +26,7 @@ const MainPage = () => {
   }, []);
 
   const fetchPokeData = async () => {
+    setIsLoading(true);
     try {
       const { data } = await axios.get<PokemonData>(url);
 
@@ -36,6 +41,8 @@ const MainPage = () => {
       setDisplayedPokemon(filteredPokemons);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,16 +64,18 @@ const MainPage = () => {
     setDisplayedPokemon(filteredPokemons);
   };
 
+  if (isLoading) return <LoaderPokeball />;
+
   return (
     <article className="pt-6">
       <header className="flex flex-col gap-2 w-full px-4 z-50">
-        <AutoComplete
+        <SearchBox
           allPokemons={allPokemons}
           setDisplayedPokemons={setDisplayedPokemon}
         />
       </header>
       <section className="pt-6 flex flex-col justify-content items-center overflow-auto z-0">
-        <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl">
+        <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl mb-5">
           {displayedPokemons.length > 0 ? (
             displayedPokemons.map(({ url, name }: PokemonNameAndUrl) => (
               <PokeCard url={url} name={name} key={url} />
@@ -80,13 +89,13 @@ const MainPage = () => {
       </section>
       {allPokemons.length > displayedPokemons.length &&
         displayedPokemons.length !== 1 && (
-          <div className="text-center">
-            <button
-              onClick={pokemonGetMoreHandler}
-              className="bg-slate-800 px-6 py-2 my-4 text-base rounded-lg font-bold text-white"
-            >
-              더보기
-            </button>
+          <div className="mx-auto">
+            <Button
+              width={32}
+              height={"[50px]"}
+              text={"더보기"}
+              actions={pokemonGetMoreHandler}
+            />
           </div>
         )}
     </article>

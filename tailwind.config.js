@@ -38,6 +38,25 @@ export default {
       minHeight: {
         main: `calc(100vh - 70px)`,
       },
+      keyframes: {
+        loaderPokeball: {
+          "0%": { fill: "#ff2a2a;" },
+          "15%": { fill: "#ff7a2a;" },
+          "30%": { fill: "#ffc52a;" },
+          "45%": { fill: "#43ff2a;" },
+          "60%": { fill: "#2a89ff;" },
+          "75%": { fill: "#202082;" },
+          "90%": { fill: "#6b2aff;" },
+          "100%": { fill: "#e82aff;" },
+        },
+      },
+      animation: {
+        loaderPokeball: "1s ease-in-out infinite",
+      },
+      fontFamily: {
+        PocketMonk: ["pocketMonk"],
+        Maplestory: ["maplestory"],
+      },
     },
   },
   plugins: [require("tailwind-scrollbar")],

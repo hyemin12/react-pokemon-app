@@ -1,4 +1,18 @@
+@font-face {
+  font-family: "pocketMonk";
+  src: url("./assets/fonts/PocketMonk-15ze.ttf");
+}
+@font-face {
+  font-family: "Maplestory";
+  src: url("./assets/fonts/Maplestory-Light.ttf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: "Maplestory", system-ui, sans-serif;
+  }
+}
