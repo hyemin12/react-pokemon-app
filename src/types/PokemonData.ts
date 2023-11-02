@@ -1,7 +1,7 @@
 export interface PokemonData {
   count: number;
-  nextPokemon: string | null;
-  prevPokemon: string | null;
+  next: string | null;
+  previous: string | null;
   results: PokemonNameAndUrl[];
 }
 

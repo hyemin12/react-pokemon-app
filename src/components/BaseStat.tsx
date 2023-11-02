@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 
-const BaseStat = ({ valueStat, nameStat, type }) => {
-  const barRef = useRef();
+interface BaseStatProps {
+  valueStat: number;
+  nameStat: string;
+  type: string;
+}
+
+const BaseStat = ({ valueStat, nameStat, type }: BaseStatProps) => {
+  const barRef = useRef<HTMLDivElement>(null);
   const bg = `bg-${type}`;
 
   useEffect(() => {

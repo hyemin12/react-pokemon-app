@@ -1,4 +1,9 @@
-const Type = ({ type, damageValue }) => {
+interface TypeProps {
+  type: string;
+  damageValue?: string;
+}
+
+const Type = ({ type, damageValue }: TypeProps) => {
   const bg = `bg-${type}`;
   return (
     <div
