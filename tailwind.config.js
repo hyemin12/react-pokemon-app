@@ -10,6 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        logoBlue: "#3860ab",
         primary: "#ffcb05",
         second: "#3d7dca",
         third: "#003a70",
@@ -33,6 +34,9 @@ export default {
         fairy: "#D685AD",
         none: "#BfBfBf",
         blackRgba: "rgba(0, 0, 0, 0.54)",
+      },
+      minHeight: {
+        main: `calc(100vh - 70px)`,
       },
     },
   },
