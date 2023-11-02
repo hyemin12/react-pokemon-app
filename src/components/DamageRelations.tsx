@@ -26,7 +26,6 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
 
     if (arrayDamage.length >= 2) {
       const obj = joinDamageRelations(arrayDamage);
-      console.log(obj, postDamageValue(reduceDuplicateValues(obj.from)));
       setDamagePokemon(postDamageValue(reduceDuplicateValues(obj.from)));
     } else {
       setDamagePokemon(postDamageValue(arrayDamage[0]?.from));

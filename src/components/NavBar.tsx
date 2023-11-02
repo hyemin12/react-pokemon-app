@@ -73,7 +73,7 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]  ${
-        show ? "bg-[#090b13]" : "bg-logoBlue"
+        show ? "bg-[#090b13]" : "bg-slate-700"
       }`}
     >
       <Logo />

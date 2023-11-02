@@ -49,9 +49,28 @@ export default {
           "90%": { fill: "#6b2aff;" },
           "100%": { fill: "#e82aff;" },
         },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        fadeOut: {
+          "0%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+        slideUp: {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(-100px)" },
+        },
+        slideDown: {
+          from: { transform: "translateY(-100px)" },
+          to: { transform: "translateY(0)" },
+        },
       },
       animation: {
-        loaderPokeball: "1s ease-in-out infinite",
+        loaderPokeball: "0.7s ease-in-out infinite",
+        fadeIn: "0.5s linear",
+        fadeOut: "0.25s ease-out forwards",
+        slideDown: "0.25s ease-out forwards",
       },
       fontFamily: {
         PocketMonk: ["pocketMonk"],

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 const useOnClickOutSide = (ref, callback) => {
+  console.log(callback);
   useEffect(() => {
     const listener = (e) => {
       // 1. 어디 클릭하는지 구분
