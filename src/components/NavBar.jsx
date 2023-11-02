@@ -36,12 +36,14 @@ const NavBar = () => {
         navigate("/");
       }
     });
+    console.log(unsubscribe);
     return () => unsubscribe();
   }, [pathname]);
 
   const authHandler = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
+        console.log(result, result.user);
         setUserData(result.user);
         saveUserDataToLocalStorage(result.user);
       })

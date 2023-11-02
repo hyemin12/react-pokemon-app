@@ -1,5 +1,5 @@
 export const saveUserDataToLocalStorage = (loggedUserData) => {
-  localStorage.setItem("poke-app-user-data", loggedUserData);
+  localStorage.setItem("poke-app-user-data", JSON.stringify(loggedUserData));
 };
 export const getUserDataFromLocalStorage = () => {
   return localStorage.getItem("poke-app-user-data")

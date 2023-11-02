@@ -1,4 +1,4 @@
-import { ClassNameProps } from "../types/classNameProps";
+import { ClassNameProps } from "../types/ClassNameProps";
 
 export const Pokeball = ({ className: CN = "" }: ClassNameProps) => (
   <svg

@@ -1,4 +1,4 @@
-import { ClassNameProps } from "../types/classNameProps";
+import { ClassNameProps } from "../types/ClassNameProps";
 
 export const GreaterThan = ({ className: CN = "" }: ClassNameProps) => (
   <svg
