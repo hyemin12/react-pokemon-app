@@ -1,15 +1,26 @@
 import { useState } from "react";
+import { PokemonNameAndUrl } from "../types/PokemonData";
+
+interface AutoCompleteProps {
+  allPokemons: PokemonNameAndUrl[];
+  setDisplayedPokemons: React.Dispatch<
+    React.SetStateAction<PokemonNameAndUrl[]>
+  >;
+}
 
 // 자동 완성 기능 (프론트에서 먼저 모든 포켓몬의 데이터를 가지고 있어야 함)
-const AutoComplete = ({ allPokemons, setDisplayedPokemons }) => {
+const AutoComplete = ({
+  allPokemons,
+  setDisplayedPokemons,
+}: AutoCompleteProps) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const pokemonNamesFilter = (query) => {
+  const pokemonNamesFilter = (query: string) => {
     const value = query.toLowerCase();
     return value ? allPokemons.filter((e) => e.name.includes(value)) : [];
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e && e.preventDefault();
     const query = searchTerm.trim();
     const searchResult = pokemonNamesFilter(query);
@@ -17,15 +28,14 @@ const AutoComplete = ({ allPokemons, setDisplayedPokemons }) => {
     setSearchTerm("");
   };
 
-  const equalNameCheck = (query) => {
+  const equalNameCheck = (query: string) => {
     const filteredArray = pokemonNamesFilter(query);
 
     return filteredArray[0]?.name === query ? [] : filteredArray;
   };
 
-  const equalNameClick = (query) => {
+  const equalNameClick = (query: string) => {
     setSearchTerm(query);
-    submitHandler();
   };
 
   return (

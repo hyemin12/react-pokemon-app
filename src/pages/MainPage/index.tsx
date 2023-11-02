@@ -3,28 +3,27 @@ import axios from "axios";
 import PokeCard from "../../components/PokeCard";
 import AutoComplete from "../../components/AutoComplete";
 import { BASE_URL } from "../../api/const";
+import { PokemonData, PokemonNameAndUrl } from "../../types/PokemonData";
 
 const MainPage = () => {
   // 모든 포켓몬 데이터
-  const [allPokemons, setAllPokemons] = useState([]);
+  const [allPokemons, setAllPokemons] = useState<PokemonNameAndUrl[]>([]);
+
   // 실제로 보여주는 포켓몬 리스트
-  const [displayedPokemons, setDisplayedPokemon] = useState([]);
+  const [displayedPokemons, setDisplayedPokemon] = useState<
+    PokemonNameAndUrl[]
+  >([]);
 
   const limitNumber = 20;
   const url = BASE_URL + "?limit=1008&offset=0";
 
-  const filterDisplayedPokemonData = (
-    allPokemonsData,
-    displayedPokemons = []
-  ) => {
-    const limit = displayedPokemons.length + limitNumber;
-    const array = allPokemonsData.filter((_, idx) => idx + 1 <= limit);
-    return array;
-  };
+  useEffect(() => {
+    fetchPokeData();
+  }, []);
 
   const fetchPokeData = async () => {
     try {
-      const { data } = await axios.get(url);
+      const { data } = await axios.get<PokemonData>(url);
 
       const allPokemonsResponse = data.results;
 
@@ -40,9 +39,14 @@ const MainPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPokeData(true);
-  }, []);
+  const filterDisplayedPokemonData = (
+    allPokemonsData: PokemonNameAndUrl[],
+    displayedPokemons: PokemonNameAndUrl[] = []
+  ) => {
+    const limit = displayedPokemons.length + limitNumber;
+    const array = allPokemonsData.filter((_, idx) => idx + 1 <= limit);
+    return array;
+  };
 
   const pokemonGetMoreHandler = () => {
     const filteredPokemons = filterDisplayedPokemonData(
@@ -64,8 +68,8 @@ const MainPage = () => {
       <section className="pt-6 flex flex-col justify-content items-center overflow-auto z-0">
         <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl">
           {displayedPokemons.length > 0 ? (
-            displayedPokemons.map(({ url, name }) => (
-              <PokeCard url={url} name={name} key={name} />
+            displayedPokemons.map(({ url, name }: PokemonNameAndUrl) => (
+              <PokeCard url={url} name={name} key={url} />
             ))
           ) : (
             <h2 className="font-medium text-lg text-slate-900 mb-1">
