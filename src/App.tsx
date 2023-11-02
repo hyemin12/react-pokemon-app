@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <>
       <NavBar />
-      <div id="main" className="pt-[70px] mb-4">
+      <div id="main" className="pt-[70px] min-h-main ">
         <Outlet />
       </div>
       <Footer />

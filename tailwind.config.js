@@ -36,7 +36,7 @@ export default {
         blackRgba: "rgba(0, 0, 0, 0.54)",
       },
       minHeight: {
-        main: `calc(100vh - 70px)`,
+        main: `calc(100vh - 70px )`,
       },
       keyframes: {
         loaderPokeball: {
