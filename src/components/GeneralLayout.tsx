@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Auth, getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "../firebase";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -49,6 +49,8 @@ const GeneralLayout = () => {
 
     return () => authState();
   }, []);
+
+  if (!userInfo && pathname !== "/login") return null;
 
   return (
     <>
