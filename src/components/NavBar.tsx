@@ -9,58 +9,35 @@ import {
   signOut,
 } from "firebase/auth";
 import app from "../firebase";
-import {
-  getUserDataFromLocalStorage,
-  removeUserDataToLocalStorage,
-  saveUserDataToLocalStorage,
-} from "../storage/UserDataHander";
 import Logo from "./Logo";
-
-const initialUserData = getUserDataFromLocalStorage();
+import { login, logout } from "../api/Login";
+import { useAuthDispatch, useAuthState } from "../hooks/auth_context";
 
 const NavBar = () => {
   const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+
+  const dispatch = useAuthDispatch();
+  const user = useAuthState();
 
   const [show, setShow] = useState(false);
-  const [userData, setUserData] = useState<User | null>(initialUserData);
 
-  useEffect(() => {
-    // 로그인 여부 확인 후 페이지 이동
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate("/login");
-      } else if (user && pathname === "/login") {
-        navigate("/");
-      }
+  const authHandler = async () => {
+    const loginResponse = await login(auth);
+    if (!loginResponse) return console.error("로그인 실패!" + loginResponse);
+
+    return dispatch({
+      type: "LOGIN",
+      user: {
+        displayName: loginResponse?.displayName,
+        photoURL: loginResponse?.photoURL,
+      },
     });
-    console.log(unsubscribe);
-    return () => unsubscribe();
-  }, [pathname]);
-
-  const authHandler = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result, result.user);
-        setUserData(result.user);
-        saveUserDataToLocalStorage(result.user);
-      })
-      .catch((error) => console.error(error));
   };
 
-  const logoutHandler = () => {
-    signOut(auth)
-      .then(() => {
-        setUserData(null);
-        removeUserDataToLocalStorage();
-        navigate("/login");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  const logoutHandler = async () => {
+    logout(auth);
   };
 
   useEffect(() => {
@@ -89,11 +66,11 @@ const NavBar = () => {
           className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer cursor-pointer "
           onClick={logoutHandler}
         >
-          {userData?.photoURL && (
+          {user?.photoURL && (
             <img
               className="w-full h-full rounded-[50%]"
               alt="user photo"
-              src={userData?.photoURL}
+              src={user?.photoURL}
             />
           )}
 

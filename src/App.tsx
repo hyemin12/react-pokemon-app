@@ -3,31 +3,24 @@ import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
-import "./App.css";
 import Footer from "./components/Footer";
 
-const Layout = () => {
-  return (
-    <>
-      <NavBar />
-      <div id="main" className="pt-[70px] min-h-main ">
-        <Outlet />
-      </div>
-      <Footer />
-    </>
-  );
-};
+import "./App.css";
+import GeneralLayout from "./components/GeneralLayout";
+import { AuthContextProvier } from "./hooks/auth_context";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MainPage />} />
-          <Route path="pokemon/:id" element={<DetailPage />} />
-          <Route path="login" element={<LoginPage />} />
-        </Route>
-      </Routes>
+      <AuthContextProvier>
+        <Routes>
+          <Route path="/" element={<GeneralLayout />}>
+            <Route index element={<MainPage />} />
+            <Route path="pokemon/:id" element={<DetailPage />} />
+            <Route path="login" element={<LoginPage />} />
+          </Route>
+        </Routes>
+      </AuthContextProvier>
     </div>
   );
 }
