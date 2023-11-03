@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  User,
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { useLocation } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 import app from "../firebase";
 import Logo from "./Logo";
 import { login, logout } from "../api/Login";
 import { useAuthDispatch, useAuthState } from "../hooks/auth_context";
+import { deleteUserInfoSessionStorage } from "../storage/userInfoHandler";
 
 const NavBar = () => {
   const auth = getAuth(app);
@@ -37,7 +31,8 @@ const NavBar = () => {
   };
 
   const logoutHandler = async () => {
-    logout(auth);
+    const response = await logout(auth);
+    return response === "success" ? deleteUserInfoSessionStorage() : null;
   };
 
   useEffect(() => {

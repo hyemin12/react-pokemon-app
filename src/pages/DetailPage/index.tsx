@@ -184,7 +184,7 @@ const DetailPage = () => {
             <div className="absolute z-30 top-6 flex items-center w-full justify-between px-2">
               <div className="flex items-center gap-1">
                 <Link to="/">
-                  <ArrowLeft className="w-6 h-8 text-zinc-200" />
+                  <ArrowLeft className="w-6 h-8 text-zinc-200 " />
                 </Link>
                 <h1 className="text-zinc-200 font-bold text-2xl capitalize font-PocketMonk tracking-[0.25em]">
                   {pokemon.name}

@@ -4,7 +4,11 @@ import app from "../firebase";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import { AuthProps, useAuthDispatch } from "../hooks/auth_context";
+import {
+  AuthProps,
+  useAuthDispatch,
+  useAuthState,
+} from "../hooks/auth_context";
 import {
   getUserInfoToSessionStorage,
   saveUserInfoToSessionStorage,
@@ -14,6 +18,7 @@ const GeneralLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAuthDispatch();
+  const userInfo = useAuthState();
 
   const auth = getAuth(app);
 
@@ -22,7 +27,7 @@ const GeneralLayout = () => {
     const authState = onAuthStateChanged(auth, (user) => {
       if (!user) {
         navigate("/login");
-      } else if (user && pathname === "/login") {
+      } else if (user) {
         dispatch({
           type: "LOGIN",
           user: {
@@ -30,15 +35,15 @@ const GeneralLayout = () => {
             photoURL: user?.photoURL,
           },
         });
-        const storageUserInfo = getUserInfoToSessionStorage();
-        !storageUserInfo
+        !auth
           ? saveUserInfoToSessionStorage({
               displayName: user?.displayName,
               photoURL: user?.photoURL,
             })
           : null;
-
-        navigate("/");
+        if (pathname === "/login") {
+          navigate("/");
+        }
       }
     });
 

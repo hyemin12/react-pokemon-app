@@ -75,7 +75,7 @@ const MainPage = () => {
         />
       </header>
       <section className="pt-6 flex flex-col justify-content items-center overflow-auto z-0">
-        <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl mb-5">
+        <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl ">
           {displayedPokemons.length > 0 ? (
             displayedPokemons.map(({ url, name }: PokemonNameAndUrl) => (
               <PokeCard url={url} name={name} key={url} />
@@ -89,13 +89,8 @@ const MainPage = () => {
       </section>
       {allPokemons.length > displayedPokemons.length &&
         displayedPokemons.length !== 1 && (
-          <div className="mx-auto">
-            <Button
-              width={32}
-              height={"[50px]"}
-              text={"더보기"}
-              actions={pokemonGetMoreHandler}
-            />
+          <div className="mx-auto my-5">
+            <Button text={"더보기"} actions={pokemonGetMoreHandler} />
           </div>
         )}
     </article>
