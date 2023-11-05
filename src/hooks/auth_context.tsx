@@ -25,7 +25,7 @@ type Action =
 function AuthReducer(state: AuthProps | null, action: Action) {
   switch (action.type) {
     case "LOGIN":
-      return action.user;
+      return (state = action.user);
     case "LOGOUT":
       return null;
     default:

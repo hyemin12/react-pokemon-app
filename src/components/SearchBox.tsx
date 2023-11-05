@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { PokemonNameAndUrl } from "../types/PokemonData";
 import AutoComplete from "./AutoComplete";
 
@@ -15,6 +15,10 @@ const SearchBox = ({
   setDisplayedPokemons,
 }: AutoCompleteProps) => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [validationMessage, setValidationMessage] = useState<string | null>(
+    null
+  );
 
   const pokemonNamesFilter = (query: string) => {
     const value = query.toLowerCase();
@@ -39,26 +43,45 @@ const SearchBox = ({
     setSearchTerm(query);
   };
 
+  const searchTermOnChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      const reg = /^[a-zA-Z]*$/;
+      if (reg.test(value)) {
+        setSearchTerm(value);
+        setValidationMessage(null);
+      } else {
+        setValidationMessage("영문만 입력 가능합니다.");
+      }
+    },
+    [searchTerm]
+  );
+
   return (
     <div className="relative z-50">
-      <form
-        className="relative flex justify-center items-center w-[30.5rem] h-10 rounded-lg m-auto"
-        onSubmit={submitHandler}
-      >
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="text-lg w-[30.5rem] h-10 px-2 py-1 bg-[hsl(214,13%,47%)] rounded-2xl  text-gray-300 text-center"
-        />
-
-        <button
-          type="submit"
-          className="text-xs bg-slate-900  text-slate-300 w-[3rem] h-10 px-2 py-1 rounded-r-2xl text-center absolute right-0 hover:bg-slate-700"
+      <div className="relative  w-[30.5rem] h-10 rounded-lg m-auto mb-3">
+        <form
+          className="flex justify-center items-center"
+          onSubmit={submitHandler}
         >
-          검색
-        </button>
-      </form>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={searchTermOnChange}
+            className="text-lg w-[30.5rem] h-10 px-2 py-1 bg-[hsl(214,13%,47%)] rounded-2xl  text-gray-300 text-center"
+            required
+          />
+          <button
+            type="submit"
+            className="text-xs bg-slate-900  text-slate-300 w-[3rem] h-10 px-2 py-1 rounded-r-2xl text-center absolute right-0 hover:bg-slate-700"
+          >
+            검색
+          </button>
+        </form>
+        {validationMessage && (
+          <span className="text-rose-500 text-sm">{validationMessage}</span>
+        )}
+      </div>
       {equalNameCheck(searchTerm).length > 0 && (
         <div
           className={`w-full flex bottom-0 h-0 flex-col absolute justify-center items-center translate-y-2`}

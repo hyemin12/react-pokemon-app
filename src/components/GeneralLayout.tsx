@@ -9,10 +9,7 @@ import {
   useAuthDispatch,
   useAuthState,
 } from "../hooks/auth_context";
-import {
-  getUserInfoToSessionStorage,
-  saveUserInfoToSessionStorage,
-} from "../storage/userInfoHandler";
+import { saveUserInfoToSessionStorage } from "../storage/userInfoHandler";
 
 const GeneralLayout = () => {
   const { pathname } = useLocation();
@@ -35,7 +32,7 @@ const GeneralLayout = () => {
             photoURL: user?.photoURL,
           },
         });
-        !auth
+        !userInfo
           ? saveUserInfoToSessionStorage({
               displayName: user?.displayName,
               photoURL: user?.photoURL,
