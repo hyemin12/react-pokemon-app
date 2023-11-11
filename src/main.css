@@ -3,8 +3,8 @@
   src: url("./assets/fonts/PocketMonk-15ze.ttf");
 }
 @font-face {
-  font-family: "Maplestory";
-  src: url("./assets/fonts/Maplestory-Light.ttf");
+  font-family: "pretendard";
+  src: url("./assets/fonts/Pretendard-Medium.woff");
 }
 
 @tailwind base;
@@ -13,6 +13,6 @@
 
 @layer base {
   html {
-    font-family: "Maplestory", system-ui, sans-serif;
+    font-family: "pretendard", system-ui, sans-serif;
   }
 }

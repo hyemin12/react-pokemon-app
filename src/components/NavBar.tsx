@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import app from "../firebase";
 import Logo from "./Logo";
@@ -13,6 +13,7 @@ const NavBar = () => {
   const { pathname } = useLocation();
 
   const dispatch = useAuthDispatch();
+  const navigate = useNavigate();
   const user = useAuthState();
 
   const [show, setShow] = useState(false);
@@ -31,8 +32,10 @@ const NavBar = () => {
   };
 
   const logoutHandler = async () => {
-    const response = await logout(auth);
-    return response === "success" ? deleteUserInfoSessionStorage() : null;
+    await logout(auth);
+    if (!"success_logout") return;
+    dispatch({ type: "LOGOUT", user: null });
+    return navigate("/login");
   };
 
   useEffect(() => {
@@ -42,6 +45,17 @@ const NavBar = () => {
     window.addEventListener("scroll", listener);
     return () => window.removeEventListener("scroll", listener);
   });
+  console.log(user);
+  if (pathname === "/login")
+    return (
+      <nav
+        className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]  ${
+          show ? "bg-[#090b13]" : "bg-slate-700"
+        }`}
+      >
+        <Logo />
+      </nav>
+    );
   return (
     <nav
       className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]  ${
@@ -49,7 +63,7 @@ const NavBar = () => {
       }`}
     >
       <Logo />
-      {pathname === "/login" ? (
+      {!user ? (
         <a
           className="bg-blackRgba py-[8px] px-[16px] border-1 border-solid border-[#f9f9f9] rounded-[4px] text-white  uppercase tracking-widest hover:bg-primary hover:text-black border-transparent duration-200 ease-in cursor-pointer"
           onClick={authHandler}
@@ -68,10 +82,6 @@ const NavBar = () => {
               src={user?.photoURL}
             />
           )}
-
-          <div className="absolute t-[48px] r-0 bg-[19,19,19] border opacity-0 peer-hover:visible">
-            <span>로그아웃</span>
-          </div>
         </div>
       )}
     </nav>

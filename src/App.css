@@ -1,3 +1,53 @@
 #root {
   padding: 0;
 }
+@keyframes textDelay {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+/* 진행바 */
+.progress {
+  height: 1.2em;
+  background: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: inset 3px 3px 10px #ccc;
+}
+.progress-bar {
+  height: 1.2em;
+  border-radius: 10px;
+  position: relative;
+}
+.progress-bar > span {
+  font-size: small;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  animation-duration: 2s;
+  animation-name: textDelay;
+}
+.progress-bar.hp {
+  background-color: #b83e3a;
+}
+.progress-bar.atk {
+  background-color: #ee8130;
+}
+.progress-bar.dep {
+  background-color: #3d7dca;
+}
+.progress-bar.spd {
+  background-color: #b7b7ce;
+}
+.progress-bar.satk {
+  background-color: #f95587;
+}
+.progress-bar.sdep {
+  background-color: #6f35fc;
+}

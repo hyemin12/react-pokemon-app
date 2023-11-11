@@ -1,3 +1,5 @@
+import { useAuthDispatch } from "@/hooks/auth_context";
+import { deleteUserInfoSessionStorage } from "@/storage/userInfoHandler";
 import {
   Auth,
   GoogleAuthProvider,
@@ -18,7 +20,8 @@ export const login = (auth: Auth) => {
 export const logout = (auth: Auth) => {
   return signOut(auth)
     .then(() => {
-      return "success";
+      deleteUserInfoSessionStorage();
+      return "success_logout";
     })
     .catch((error) => {
       alert(error.message);

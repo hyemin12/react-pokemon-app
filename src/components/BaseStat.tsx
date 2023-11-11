@@ -8,27 +8,40 @@ interface BaseStatProps {
 
 const BaseStat = ({ valueStat, nameStat, type }: BaseStatProps) => {
   const barRef = useRef<HTMLDivElement>(null);
-  const bg = `bg-${type}`;
+  const calcStat = valueStat * (100 / 255);
 
   useEffect(() => {
     const setValueStat = barRef.current;
-    const calcStat = valueStat * (100 / 255);
+    const keyframes = [
+      { width: 0 },
+      {
+        width: calcStat + "%",
+      },
+    ];
+    const options = {
+      duration: 1000,
+      easing: "ease-in",
+    };
     if (setValueStat) {
       setValueStat.style.width = calcStat + "%";
+      setValueStat.animate(keyframes, options);
     }
   }, []);
   return (
-    <tr className="w-full text-white">
-      <td className="sm:px-5">{nameStat}</td>
-      <td className="px-2 sm:px-3">{valueStat}</td>
+    <tr className="w-full ">
+      <td className="sm:px-5 w-[30px] text-zinc-200 py-1.5">
+        <p>{nameStat}</p>
+      </td>
       <td>
-        <div
-          className={`flex items-start h-2 min-w-[10rem] overflow-hidden rounded bg-gray-600`}
-        >
-          <div className={`h-3 ${bg}`} ref={barRef}></div>
+        <div className="progress w-full">
+          <div
+            className={`progress-bar ${nameStat.toLowerCase()}`}
+            ref={barRef}
+          >
+            <span>{Math.floor(calcStat) + "/255"}</span>
+          </div>
         </div>
       </td>
-      <td className="px-2 sm:px-5">255</td>
     </tr>
   );
 };

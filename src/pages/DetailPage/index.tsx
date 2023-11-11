@@ -28,6 +28,8 @@ import {
 } from "../../types/PokemonDescription";
 import { PokemonData } from "../../types/PokemonData";
 import LoaderPokeball from "../../components/LoaderPokeball";
+import Info from "./Info";
+import Section from "./Section";
 
 interface NextAndPrevPokemon {
   next: string | undefined;
@@ -74,7 +76,6 @@ const DetailPage = () => {
           nextPokemon: nextAndPrevPokemon.next,
           weight: weight / 10,
           height: height / 10,
-          abilities: formatPokemonAbilities(abilities),
           stats: formatPokemonStats(stats),
           damageRelations,
           sprites: formatPokemonSprities(sprites),
@@ -95,11 +96,6 @@ const DetailPage = () => {
       (sprite) => typeof sprite === "string"
     ) as string[];
   };
-  const formatPokemonAbilities = (abilities: Ability[]) => {
-    return abilities
-      .filter((_, idx) => idx < 2)
-      .map((obj: Ability) => obj?.ability.name.replaceAll("-", " "));
-  };
 
   const formatPokemonStats = ([
     statHP,
@@ -109,12 +105,12 @@ const DetailPage = () => {
     statSDEP,
     statSPD,
   ]: Stat[]) => [
-    { name: "Hit Points", baseStat: statHP.base_stat },
-    { name: "Attack", baseStat: statATK.base_stat },
-    { name: "Defense", baseStat: statDEP.base_stat },
-    { name: "Special Attack", baseStat: statSATK.base_stat },
-    { name: "Special Defense", baseStat: statSDEP.base_stat },
-    { name: "Speed", baseStat: statSPD.base_stat },
+    { name: "HP", baseStat: statHP.base_stat },
+    { name: "ATK", baseStat: statATK.base_stat },
+    { name: "DEP", baseStat: statDEP.base_stat },
+    { name: "SPD", baseStat: statSPD.base_stat },
+    { name: "SATK", baseStat: statSATK.base_stat },
+    { name: "SDEP", baseStat: statSDEP.base_stat },
   ];
 
   const getNextAndPrevPokemon = async (id: number) => {
@@ -158,96 +154,52 @@ const DetailPage = () => {
 
   if (!isLoading && pokemon) {
     return (
-      <article className="flex items-center gap-1 flex-col w-full">
-        <div
-          className={`${bg} w-full h-full flex flex-col z-0 items-center justify-end relative overflow-hidden`}
+      <div className="flex items-center flex-col w-full h-full bg-gray-800 relative">
+        <header
+          className={`${bg} w-full h-[40vh] relative  rounded-bl-[4em] rounded-br-[4em] px-6 py-3`}
         >
-          {pokemon.prevPokemon && (
-            <Link
-              className="absolute top-[40%] -translate-y-1/2 z-50 left-1"
-              to={`/pokemon/${pokemon.prevPokemon}`}
-            >
-              <LessThan className="w-5 h-8 p-1" />
+          <div className="flex justify-between items-center">
+            <Link to="/" className="flex items-center gap-1 text-white">
+              <ArrowLeft className="w-6 h-8 text-zinc-200 " />
+              뒤로가기
             </Link>
-          )}
+            <p className="text-zinc-200 font-bold text-md">
+              #{pokemon.id.toString().padStart(3, "00")}
+            </p>
+          </div>
 
-          {pokemon.nextPokemon && (
-            <Link
-              className="absolute top-[40%] -translate-y-1/2 z-50 right-1"
-              to={`/pokemon/${pokemon.nextPokemon}`}
-            >
-              <GreaterThan className="w-5 h-8 p-1" />
-            </Link>
-          )}
+          <div className="relative h-auto max-w-[15.5rem] z-20 -mb-16 m-auto">
+            <img
+              src={img}
+              width="100%"
+              height="auto"
+              loading="lazy"
+              alt={pokemon.name}
+              className={`object-contain h-full cursor-pointer`}
+              onClick={() => setIsModalOpen(true)}
+            />
+          </div>
+        </header>
+        <div className="w-full px-5 py-6 max-w-[550px]">
+          <h1 className="text-white text-center font-bold text-4xl capitalize tracking-[0.05em]">
+            {pokemon.name}
+          </h1>
 
-          <section className="w-full flex flex-col z-20 items-center justify-end relative h-full">
-            <div className="absolute z-30 top-6 flex items-center w-full justify-between px-2">
-              <div className="flex items-center gap-1">
-                <Link to="/">
-                  <ArrowLeft className="w-6 h-8 text-zinc-200 " />
-                </Link>
-                <h1 className="text-zinc-200 font-bold text-2xl capitalize font-PocketMonk tracking-[0.25em]">
-                  {pokemon.name}
-                </h1>
-              </div>
-              <div className="text-zinc-200 font-bold text-md">
-                #{pokemon.id.toString().padStart(3, "00")}
-              </div>
-            </div>
-
-            <div className="relative h-auto max-w-[15.5rem] z-20 mt-6 -mb-16">
-              <img
-                src={img}
-                width="100%"
-                height="auto"
-                loading="lazy"
-                alt={pokemon.name}
-                className={`object-contain h-full cursor-pointer`}
-                onClick={() => setIsModalOpen(true)}
-              />
-            </div>
+          <section className="flex items-center justify-center gap-4">
+            {/* 포켓몬 타입 */}
           </section>
-
-          <section className="w-full min-h-[65%] h-full bg-gray-800 z-10 pt-14 flex flex-col items-center gap-3 px-5 pb-4">
-            <div className="flex items-center justify-center gap-4">
-              {/* 포켓몬 타입 */}
-              {pokemon.types.map((type) => (
-                <Type key={type} type={type} />
-              ))}
+          <Section title="" width="w-full">
+            {pokemon.types.map((type) => (
+              <Type key={type} type={type} />
+            ))}
+          </Section>
+          <Section title="" width="max-w-[250px]">
+            <div className="flex w-full text-center">
+              <Info title={"weigth"} text={pokemon.weight + "kg"} />
+              <Info title={"height"} text={pokemon.height + "m"} />
             </div>
-
-            <h2 className={`text-base font-semibold ${text}`}>정보</h2>
-
-            <div className="flex w-full items-center justify-between max-w-[400px] text-center">
-              <div className="w-full">
-                <h4 className="text-[0.5rem] text-zinc-100">Weight</h4>
-                <div className="text-sm flex mt-1 gap-2 justify-center  text-zinc-200">
-                  <Balance />
-                  {pokemon.weight}kg
-                </div>
-              </div>
-              <div className="w-full">
-                <h4 className="text-[0.5rem] text-zinc-100">Weight</h4>
-                <div className="text-sm flex mt-1 gap-2 justify-center  text-zinc-200">
-                  <Vector />
-                  {pokemon.height}m
-                </div>
-              </div>
-              <div className="w-full">
-                <h4 className="text-[0.5rem] text-zinc-100">Weight</h4>
-                {pokemon.abilities.map((ability) => (
-                  <div
-                    key={ability}
-                    className="text-[0.5rem] text-zinc-100 capitalize"
-                  >
-                    {" "}
-                    {ability}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <h2 className={`text-base font-semibold ${text}`}>기본 능력치</h2>
+          </Section>
+          <Section title="기본 능력치" width="w-full">
             <div className="w-full">
               <table className="w-full max-w-md m-auto">
                 <tbody>
@@ -262,19 +214,37 @@ const DetailPage = () => {
                 </tbody>
               </table>
             </div>
-
-            <h2 className={`text-base font-semibold ${text}`}>설명</h2>
+          </Section>
+          <Section title="설명" width="w-full">
             <p className="text-md leading-4  text-zinc-200 max-w-[30rem] text-center">
               {pokemon.description}
             </p>
+          </Section>
 
-            <div className="flex my-8 flex-wrap justify-center">
-              {pokemon.sprites.map((url, index) => (
+          <section className="flex my-8 flex-wrap justify-center">
+            {pokemon.sprites.map((url, index) => (
+              <div className="hover:translate-y-2	duration-100">
                 <img key={index} src={url} alt="sprite" />
-              ))}
-            </div>
+              </div>
+            ))}
           </section>
         </div>
+        {pokemon.prevPokemon && (
+          <Link
+            className="absolute top-[40%] -translate-y-1/2 z-50 left-3"
+            to={`/pokemon/${pokemon.prevPokemon}`}
+          >
+            <LessThan className="w-5 h-8 p-1" />
+          </Link>
+        )}
+        {pokemon.nextPokemon && (
+          <Link
+            className="absolute top-[40%] -translate-y-1/2 z-50 right-3"
+            to={`/pokemon/${pokemon.nextPokemon}`}
+          >
+            <GreaterThan className="w-5 h-8 p-1" />
+          </Link>
+        )}
         {isModalOpen && (
           <DamageModal
             damages={pokemon?.damageRelations}
@@ -282,7 +252,7 @@ const DetailPage = () => {
             setIsModalOpen={setIsModalOpen}
           />
         )}
-      </article>
+      </div>
     );
   }
   return null;

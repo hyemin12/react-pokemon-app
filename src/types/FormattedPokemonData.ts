@@ -5,7 +5,6 @@ export interface FormattedPokemonData {
   height: number;
   prevPokemon: string | undefined;
   nextPokemon: string | undefined;
-  abilities: string[];
   stats: Stat[];
   damageRelations: DamageRelation[];
   types: string[];
