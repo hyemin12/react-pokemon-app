@@ -1,35 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../../api/const";
-import { Loading } from "../../assets/Loading";
-import { Balance } from "../../assets/Balance";
-import { Vector } from "../../assets/Vector";
-import { ArrowLeft } from "../../assets/ArrowLeft";
-import { GreaterThan } from "../../assets/GreaterThan";
-import { LessThan } from "../../assets/LessThan";
+import { BASE_URL } from "@/api/const";
+import { ArrowLeft } from "@/assets/ArrowLeft";
+import { GreaterThan } from "@/assets/GreaterThan";
+import { LessThan } from "@/assets/LessThan";
+import { PokemonProps, usePokemonContext } from "@/hooks/pokemon_context";
+import DamageModal from "@/components/DamageModal";
+import LoaderPokeball from "@/components/LoaderPokeball";
 import Type from "./Type";
 import BaseStat from "./BaseStat";
-import DamageModal from "../../components/DamageModal";
-import { FormattedPokemonData } from "../../types/FormattedPokemonData";
-import {
-  Ability,
-  PokemonDetail,
-  Sprites,
-  Stat,
-} from "../../types/PokemonDetail";
-import {
-  DamageRelationOfPokemonType,
-  Pokemon,
-} from "../../types/DamageRelationOfPokemonTypes";
+import Info from "./Info";
+import Section from "./Section";
 import {
   FlavorTextEntry,
   PokemonDescription,
-} from "../../types/PokemonDescription";
-import { PokemonData } from "../../types/PokemonData";
-import LoaderPokeball from "../../components/LoaderPokeball";
-import Info from "./Info";
-import Section from "./Section";
+} from "@/types/PokemonDescription";
+import { PokemonData } from "@/types/PokemonData";
+import { DamageRelationOfPokemonType } from "@/types/DamageRelationOfPokemonTypes";
+import { FormattedPokemonData } from "@/types/FormattedPokemonData";
+import { PokemonDetail, Sprites, Stat } from "@/types/PokemonDetail";
 
 interface NextAndPrevPokemon {
   next: string | undefined;
@@ -38,6 +28,7 @@ interface NextAndPrevPokemon {
 
 const DetailPage = () => {
   const [pokemon, setPokemon] = useState<FormattedPokemonData | null>(null);
+  const { setPokemonType } = usePokemonContext() as PokemonProps;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { id: pokemonName } = useParams() as { id: string };
@@ -81,6 +72,8 @@ const DetailPage = () => {
           description: await getPokemonDescription(id),
         };
         setPokemon(formattedPokemonData);
+
+        setPokemonType(types[0].type.name);
       }
     } catch (error) {
       console.error(error);
@@ -146,7 +139,6 @@ const DetailPage = () => {
 
   const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`;
   const bg = `bg-${pokemon?.types?.[0]}`;
-  const text = "text-" + pokemon?.types?.[0];
 
   if (isLoading) return <LoaderPokeball />;
   if (!isLoading && !pokemon) return <div>NotFound</div>;

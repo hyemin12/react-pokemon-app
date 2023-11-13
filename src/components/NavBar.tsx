@@ -6,11 +6,13 @@ import { useAuthState } from "@/hooks/auth_context";
 import app from "@/firebase";
 import Logo from "./Logo";
 import LightDarkModeButton from "./LightDarkModeButton";
+import { PokemonProps, usePokemonContext } from "@/hooks/pokemon_context";
 
 const NavBar = () => {
   const auth = getAuth(app);
   const { pathname } = useLocation();
   const user = useAuthState();
+  const { pokemonType } = usePokemonContext() as PokemonProps;
 
   const loginHandler = async () => {
     await login(auth);
@@ -22,7 +24,11 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]  bg-[#b83e3a]
+      className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]   ${
+        pathname.includes("pokemon") && pokemonType
+          ? `bg-${pokemonType}`
+          : "bg-[#b83e3a]"
+      }
       `}
     >
       <Logo />
