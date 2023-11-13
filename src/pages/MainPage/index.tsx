@@ -67,7 +67,7 @@ const MainPage = () => {
   if (isLoading) return <LoaderPokeball />;
 
   return (
-    <article className="pt-6">
+    <article className="pt-6 dark:bg-gray-800">
       <header className="flex flex-col gap-2 w-full px-4 z-50">
         <SearchBox
           allPokemons={allPokemons}
@@ -89,8 +89,12 @@ const MainPage = () => {
       </section>
       {allPokemons.length > displayedPokemons.length &&
         displayedPokemons.length !== 1 && (
-          <div className="mx-auto my-5">
-            <Button text={"더보기"} actions={pokemonGetMoreHandler} />
+          <div className="mx-auto py-5 peer">
+            <Button
+              etcClass={"mx-auto"}
+              text={"더보기"}
+              actions={pokemonGetMoreHandler}
+            />
           </div>
         )}
     </article>

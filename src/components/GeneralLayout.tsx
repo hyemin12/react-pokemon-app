@@ -1,21 +1,18 @@
-import { useContext, useEffect, useState } from "react";
-import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
-import app from "../firebase";
+import { useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import app from "../firebase";
+import { useAuthDispatch, useAuthState } from "@/hooks/auth_context";
+import { useThemeContext } from "@/hooks/theme_context";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import {
-  AuthProps,
-  useAuthDispatch,
-  useAuthState,
-} from "../hooks/auth_context";
-import { saveUserInfoToSessionStorage } from "../storage/userInfoHandler";
 
 const GeneralLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAuthDispatch();
   const userInfo = useAuthState();
+  const { theme } = useThemeContext();
 
   const auth = getAuth(app);
 
@@ -32,12 +29,6 @@ const GeneralLayout = () => {
             photoURL: user?.photoURL,
           },
         });
-        !userInfo
-          ? saveUserInfoToSessionStorage({
-              displayName: user?.displayName,
-              photoURL: user?.photoURL,
-            })
-          : null;
         if (pathname === "/login") {
           navigate("/");
         }
@@ -46,13 +37,16 @@ const GeneralLayout = () => {
 
     return () => authState();
   }, []);
-
-  if (!userInfo && pathname !== "/login") return null;
-
+  console.log(userInfo);
   return (
     <>
       <NavBar />
-      <div id="main" className="pt-[70px] min-h-main ">
+      <div
+        id="main"
+        className={`${
+          theme === "dark" ? "dark" : "light"
+        } pt-[70px] min-h-main`}
+      >
         <Outlet />
       </div>
       <Footer />

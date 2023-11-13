@@ -1,5 +1,9 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
-import { getUserInfoToSessionStorage } from "../storage/userInfoHandler";
+import {
+  deleteUserInfoSessionStorage,
+  getUserInfoToSessionStorage,
+  saveUserInfoToSessionStorage,
+} from "@/storage/userInfoHandler";
 
 interface AuthContextProps {
   children: React.ReactNode;
@@ -25,8 +29,11 @@ type Action =
 function AuthReducer(state: AuthProps | null, action: Action) {
   switch (action.type) {
     case "LOGIN":
+      console.log(action.user);
+      saveUserInfoToSessionStorage(action.user);
       return (state = action.user);
     case "LOGOUT":
+      deleteUserInfoSessionStorage();
       return null;
     default:
       throw new Error("Unhandled action");

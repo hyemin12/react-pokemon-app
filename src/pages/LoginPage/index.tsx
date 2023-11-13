@@ -11,11 +11,6 @@ import Button from "@/components/Button";
 const LoginPage = () => {
   const auth = getAuth(app);
   const user = useAuthState();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    user ? navigate("/") : null;
-  }, []);
 
   if (user) return null;
   return (

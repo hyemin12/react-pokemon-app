@@ -8,18 +8,21 @@ import Footer from "./components/Footer";
 import "./App.css";
 import GeneralLayout from "./components/GeneralLayout";
 import { AuthContextProvier } from "./hooks/auth_context";
+import { ThemeContextProvider } from "./hooks/theme_context";
 
 function App() {
   return (
     <div className="App">
       <AuthContextProvier>
-        <Routes>
-          <Route path="/" element={<GeneralLayout />}>
-            <Route index element={<MainPage />} />
-            <Route path="pokemon/:id" element={<DetailPage />} />
-            <Route path="login" element={<LoginPage />} />
-          </Route>
-        </Routes>
+        <ThemeContextProvider>
+          <Routes>
+            <Route path="/" element={<GeneralLayout />}>
+              <Route index element={<MainPage />} />
+              <Route path="pokemon/:id" element={<DetailPage />} />
+              <Route path="login" element={<LoginPage />} />
+            </Route>
+          </Routes>
+        </ThemeContextProvider>
       </AuthContextProvier>
     </div>
   );

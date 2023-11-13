@@ -35,7 +35,6 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
 
   const bg = "bg-" + pokemon?.type;
   const border = "border-" + pokemon?.type;
-  const text = "text-" + pokemon?.type;
 
   const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`;
 
@@ -44,10 +43,10 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
       {pokemon && (
         <Link
           to={"/pokemon/" + pokemon.name}
-          className={`box-border rounded-lg ${border} w-[8.5rem] h-[9rem] z-0 bg-slate-800 justify-between items-center grow hover:-translate-y-2 duration-300`}
+          className={`box-border rounded-lg ${border} w-[9rem] h-[9.5rem] z-0 ${bg} justify-between items-center grow hover:-translate-y-2 duration-300`}
         >
           <div
-            className={`${text} h-[1.5rem] text-xs w-full pt-1 px-2  text-right rounded-t-lg`}
+            className={`text-white h-[1.5rem] text-xs w-full pt-1 px-2  text-right rounded-t-lg`}
           >
             #{pokemon.id.toString().padStart(3, "00")}
           </div>
@@ -58,11 +57,11 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
               <LazyImg src={img} alt={pokemon.name} />
             </div>
           </div>
-          <div
-            className={`${bg} text-center text-xs text-zinc-100 h-[1.5rem] rounded-b-lg uppercase font-medium  pt-1`}
+          <h4
+            className={`${bg} text-center text-sm text-zinc-100 h-[1.5rem] rounded-b-lg uppercase font-medium  pt-1`}
           >
             {pokemon.name}
-          </div>
+          </h4>
         </Link>
       )}
     </>
