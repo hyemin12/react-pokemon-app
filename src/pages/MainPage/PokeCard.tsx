@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LazyImg from "./LazyImg";
-import { PokemonCardData, PokemonNameAndUrl } from "../types/PokemonData";
-import { PokemonDetail } from "../types/PokemonDetail";
+import LazyImg from "../../components/LazyImg";
+import { PokemonCardData, PokemonNameAndUrl } from "../../types/PokemonData";
+import { PokemonDetail } from "../../types/PokemonDetail";
 
 const PokeCard = ({ url }: PokemonNameAndUrl) => {
   const [pokemon, setPokemon] = useState<PokemonCardData>();

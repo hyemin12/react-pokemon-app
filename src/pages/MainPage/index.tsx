@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PokeCard from "../../components/PokeCard";
+import PokeCard from "./PokeCard";
 import SearchBox from "../../components/SearchBox";
 import { BASE_URL } from "../../api/const";
 import { PokemonData, PokemonNameAndUrl } from "../../types/PokemonData";

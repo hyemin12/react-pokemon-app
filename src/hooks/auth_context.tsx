@@ -29,7 +29,6 @@ type Action =
 function AuthReducer(state: AuthProps | null, action: Action) {
   switch (action.type) {
     case "LOGIN":
-      console.log(action.user);
       saveUserInfoToSessionStorage(action.user);
       return (state = action.user);
     case "LOGOUT":

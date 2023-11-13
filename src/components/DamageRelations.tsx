@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Type from "./Type";
+import Type from "../pages/DetailPage/Type";
 import { DamageRelations as DamageRelationsProps } from "../types/DamageRelationOfPokemonTypes";
 import {
   Damage,

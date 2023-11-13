@@ -8,8 +8,8 @@ import { Vector } from "../../assets/Vector";
 import { ArrowLeft } from "../../assets/ArrowLeft";
 import { GreaterThan } from "../../assets/GreaterThan";
 import { LessThan } from "../../assets/LessThan";
-import Type from "../../components/Type";
-import BaseStat from "../../components/BaseStat";
+import Type from "./Type";
+import BaseStat from "./BaseStat";
 import DamageModal from "../../components/DamageModal";
 import { FormattedPokemonData } from "../../types/FormattedPokemonData";
 import {
@@ -54,8 +54,7 @@ const DetailPage = () => {
       const { data: pokemonData } = await axios.get<PokemonDetail>(url);
 
       if (pokemonData) {
-        const { name, id, types, weight, height, abilities, stats, sprites } =
-          pokemonData;
+        const { name, id, types, weight, height, stats, sprites } = pokemonData;
 
         const nextAndPrevPokemon: NextAndPrevPokemon =
           await getNextAndPrevPokemon(id);
@@ -154,9 +153,9 @@ const DetailPage = () => {
 
   if (!isLoading && pokemon) {
     return (
-      <div className="flex items-center flex-col w-full h-full bg-gray-800 relative">
+      <div className="flex items-center flex-col w-full h-full bg-gray-100  dark:bg-gray-800  relative">
         <header
-          className={`${bg} w-full h-[40vh] relative  rounded-bl-[4em] rounded-br-[4em] px-6 py-3`}
+          className={`${bg} w-full h-[35vh] relative  rounded-bl-[4em] rounded-br-[4em] px-6 py-3`}
         >
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center gap-1 text-white">
@@ -181,7 +180,7 @@ const DetailPage = () => {
           </div>
         </header>
         <div className="w-full px-5 py-6 max-w-[550px]">
-          <h1 className="text-white text-center font-bold text-4xl capitalize tracking-[0.05em]">
+          <h1 className=" text-center font-bold text-4xl capitalize tracking-[0.05em] text-slate-950 dark:text-white">
             {pokemon.name}
           </h1>
 
@@ -216,7 +215,7 @@ const DetailPage = () => {
             </div>
           </Section>
           <Section title="설명" width="w-full">
-            <p className="text-md leading-4  text-zinc-200 max-w-[30rem] text-center">
+            <p className="text-md leading-4   max-w-[30rem] text-center text-slate-800 dark:text-zinc-200">
               {pokemon.description}
             </p>
           </Section>

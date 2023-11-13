@@ -36,7 +36,7 @@ export default {
         blackRgba: "rgba(0, 0, 0, 0.54)",
       },
       minHeight: {
-        main: `calc(100vh - 70px )`,
+        main: `calc(100vh - 56px - 70px )`,
       },
       keyframes: {
         loaderPokeball: {
@@ -78,6 +78,6 @@ export default {
       },
     },
   },
-  darkMode: "class",
+  darkMode: ["class", '[data-mode="dark"]'],
   plugins: [require("tailwind-scrollbar")],
 };
