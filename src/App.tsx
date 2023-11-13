@@ -1,15 +1,12 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
 import LoginPage from "./pages/LoginPage";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-
-import "./App.css";
 import GeneralLayout from "./components/GeneralLayout";
 import { AuthContextProvier } from "./hooks/auth_context";
 import { ThemeContextProvider } from "./hooks/theme_context";
 import { PokemonContextProvider } from "./hooks/pokemon_context";
+import "./App.css";
 
 function App() {
   return (

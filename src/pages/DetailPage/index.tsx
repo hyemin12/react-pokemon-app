@@ -180,9 +180,11 @@ const DetailPage = () => {
             {/* 포켓몬 타입 */}
           </section>
           <Section title="" width="w-full">
-            {pokemon.types.map((type) => (
-              <Type key={type} type={type} />
-            ))}
+            <div className="flex gap-5">
+              {pokemon.types.map((type) => (
+                <Type key={type} type={type} />
+              ))}
+            </div>
           </Section>
           <Section title="" width="max-w-[250px]">
             <div className="flex w-full text-center">
@@ -194,11 +196,11 @@ const DetailPage = () => {
             <div className="w-full">
               <table className="w-full max-w-md m-auto">
                 <tbody>
-                  {pokemon.stats.map((stat) => (
+                  {pokemon.stats.map(({ name, baseStat }) => (
                     <BaseStat
-                      key={stat.name}
-                      valueStat={stat.baseStat}
-                      nameStat={stat.name}
+                      key={name}
+                      valueStat={baseStat}
+                      nameStat={name}
                       type={pokemon.types[0]}
                     />
                   ))}
@@ -215,7 +217,7 @@ const DetailPage = () => {
           <section className="flex my-8 flex-wrap justify-center">
             {pokemon.sprites.map((url, index) => (
               <div className="hover:translate-y-2	duration-100">
-                <img key={index} src={url} alt="sprite" />
+                <img key={url} src={url} alt="sprite" />
               </div>
             ))}
           </section>
