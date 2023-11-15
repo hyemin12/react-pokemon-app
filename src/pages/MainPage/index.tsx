@@ -6,8 +6,10 @@ import { BASE_URL } from "../../api/const";
 import { PokemonData, PokemonNameAndUrl } from "../../types/PokemonData";
 import LoaderPokeball from "../../components/LoaderPokeball";
 import Button from "../../components/Button";
+import { useAppDispatch } from "@/hooks/redux";
 
 const MainPage = () => {
+  const dispatch = useAppDispatch();
   // 모든 포켓몬 데이터
   const [allPokemons, setAllPokemons] = useState<PokemonNameAndUrl[]>([]);
 
@@ -22,7 +24,7 @@ const MainPage = () => {
   const url = BASE_URL + "?limit=1008&offset=0";
 
   useEffect(() => {
-    fetchPokeData();
+    dispatch(fetchPokeData);
   }, []);
 
   const fetchPokeData = async () => {

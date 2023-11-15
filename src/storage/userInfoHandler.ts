@@ -1,6 +1,6 @@
-import { AuthProps } from "../hooks/auth_context";
+import { userSliceProps } from "@/store/user/user.slice";
 
-export const saveUserInfoToSessionStorage = (userInfo: AuthProps) => {
+export const saveUserInfoToSessionStorage = (userInfo: userSliceProps) => {
   sessionStorage.setItem("poke-app", JSON.stringify(userInfo));
 };
 

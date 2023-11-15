@@ -1,149 +1,36 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "@/api/const";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getPokemonData } from "@/store/pokemons/pokemon.slice";
 import { ArrowLeft } from "@/assets/ArrowLeft";
 import { GreaterThan } from "@/assets/GreaterThan";
 import { LessThan } from "@/assets/LessThan";
-import { PokemonProps, usePokemonContext } from "@/hooks/pokemon_context";
 import DamageModal from "@/components/DamageModal";
 import LoaderPokeball from "@/components/LoaderPokeball";
-import Type from "./Type";
+import Section from "./Section";
 import BaseStat from "./BaseStat";
 import Info from "./Info";
-import Section from "./Section";
-import {
-  FlavorTextEntry,
-  PokemonDescription,
-} from "@/types/PokemonDescription";
-import { PokemonData } from "@/types/PokemonData";
-import { DamageRelationOfPokemonType } from "@/types/DamageRelationOfPokemonTypes";
-import { FormattedPokemonData } from "@/types/FormattedPokemonData";
-import { PokemonDetail, Sprites, Stat } from "@/types/PokemonDetail";
-
-interface NextAndPrevPokemon {
-  next: string | undefined;
-  prev: string | undefined;
-}
+import Type from "./Type";
 
 const DetailPage = () => {
-  const [pokemon, setPokemon] = useState<FormattedPokemonData | null>(null);
-  const { setPokemonType } = usePokemonContext() as PokemonProps;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { isLoading, error, pokemonData } = useAppSelector(
+    (state) => state.pokemonSlice
+  );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { id: pokemonName } = useParams() as { id: string };
 
-  const url = BASE_URL + pokemonName;
-
   useEffect(() => {
-    setIsLoading(true);
-    fetchPokemonData();
+    dispatch(getPokemonData(pokemonName));
   }, [pokemonName]);
 
-  const fetchPokemonData = async () => {
-    try {
-      const { data: pokemonData } = await axios.get<PokemonDetail>(url);
-
-      if (pokemonData) {
-        const { name, id, types, weight, height, stats, sprites } = pokemonData;
-
-        const nextAndPrevPokemon: NextAndPrevPokemon =
-          await getNextAndPrevPokemon(id);
-
-        const damageRelations = await Promise.all(
-          types.map(async (i) => {
-            const type = await axios.get<DamageRelationOfPokemonType>(
-              i.type.url
-            );
-            return type.data.damage_relations;
-          })
-        );
-        const formattedPokemonData: FormattedPokemonData = {
-          id,
-          name,
-          types: types.map(({ type }) => type.name),
-          prevPokemon: nextAndPrevPokemon.prev,
-          nextPokemon: nextAndPrevPokemon.next,
-          weight: weight / 10,
-          height: height / 10,
-          stats: formatPokemonStats(stats),
-          damageRelations,
-          sprites: formatPokemonSprities(sprites),
-          description: await getPokemonDescription(id),
-        };
-        setPokemon(formattedPokemonData);
-
-        setPokemonType(types[0].type.name);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  const formatPokemonSprities = (sprites: Sprites) => {
-    const newSprites = { ...sprites };
-
-    return Object.values(newSprites).filter(
-      (sprite) => typeof sprite === "string"
-    ) as string[];
-  };
-
-  const formatPokemonStats = ([
-    statHP,
-    statATK,
-    statDEP,
-    statSATK,
-    statSDEP,
-    statSPD,
-  ]: Stat[]) => [
-    { name: "HP", baseStat: statHP.base_stat },
-    { name: "ATK", baseStat: statATK.base_stat },
-    { name: "DEP", baseStat: statDEP.base_stat },
-    { name: "SPD", baseStat: statSPD.base_stat },
-    { name: "SATK", baseStat: statSATK.base_stat },
-    { name: "SDEP", baseStat: statSDEP.base_stat },
-  ];
-
-  const getNextAndPrevPokemon = async (id: number) => {
-    const urlPokemon = `${BASE_URL}?limit=1&offset=${id - 1}`;
-    const { data: pokemonData } = await axios.get(urlPokemon);
-
-    const nextResponse =
-      pokemonData.next && (await axios.get<PokemonData>(pokemonData.next));
-    const prevResponse =
-      pokemonData.previous &&
-      (await axios.get<PokemonData>(pokemonData.previous));
-
-    return {
-      next: nextResponse?.data?.results?.[0]?.name,
-      prev: prevResponse?.data?.results?.[0]?.name,
-    };
-  };
-
-  const getPokemonDescription = async (id: number): Promise<string> => {
-    const url = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
-
-    const { data: descriptions } = await axios.get<PokemonDescription>(url);
-
-    const korDescriptions = descriptions?.flavor_text_entries
-      ?.filter((text: FlavorTextEntry) => text?.language?.name === "ko")
-      .map(({ flavor_text }: FlavorTextEntry) =>
-        flavor_text.replace(/\r|\n|\f/g, " ")
-      );
-
-    const randomIndex = Math.floor(Math.random() * korDescriptions.length);
-
-    return korDescriptions[randomIndex] as string;
-  };
-
-  const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`;
-  const bg = `bg-${pokemon?.types?.[0]}`;
+  const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData?.id}.png`;
+  const bg = `bg-${pokemonData?.types?.[0]}`;
 
   if (isLoading) return <LoaderPokeball />;
-  if (!isLoading && !pokemon) return <div>NotFound</div>;
+  if (!isLoading && !pokemonData) return <div>NotFound</div>;
 
-  if (!isLoading && pokemon) {
+  if (!isLoading && pokemonData) {
     return (
       <div className="flex items-center flex-col w-full h-full bg-gray-100  dark:bg-gray-800  relative">
         <header
@@ -155,7 +42,7 @@ const DetailPage = () => {
               뒤로가기
             </Link>
             <p className="text-zinc-200 font-bold text-md">
-              #{pokemon.id.toString().padStart(3, "00")}
+              #{pokemonData.id.toString().padStart(3, "00")}
             </p>
           </div>
 
@@ -165,7 +52,7 @@ const DetailPage = () => {
               width="100%"
               height="auto"
               loading="lazy"
-              alt={pokemon.name}
+              alt={pokemonData.name}
               className={`object-contain h-full cursor-pointer`}
               onClick={() => setIsModalOpen(true)}
             />
@@ -173,7 +60,7 @@ const DetailPage = () => {
         </header>
         <div className="w-full px-5 py-6 max-w-[550px]">
           <h1 className=" text-center font-bold text-4xl capitalize tracking-[0.05em] text-slate-950 dark:text-white">
-            {pokemon.name}
+            {pokemonData.name}
           </h1>
 
           <section className="flex items-center justify-center gap-4">
@@ -181,27 +68,27 @@ const DetailPage = () => {
           </section>
           <Section title="" width="w-full">
             <div className="flex gap-5">
-              {pokemon.types.map((type) => (
+              {pokemonData.types.map((type) => (
                 <Type key={type} type={type} />
               ))}
             </div>
           </Section>
           <Section title="" width="max-w-[250px]">
             <div className="flex w-full text-center">
-              <Info title={"weigth"} text={pokemon.weight + "kg"} />
-              <Info title={"height"} text={pokemon.height + "m"} />
+              <Info title={"weigth"} text={pokemonData.weight + "kg"} />
+              <Info title={"height"} text={pokemonData.height + "m"} />
             </div>
           </Section>
           <Section title="기본 능력치" width="w-full">
             <div className="w-full">
               <table className="w-full max-w-md m-auto">
                 <tbody>
-                  {pokemon.stats.map(({ name, baseStat }) => (
+                  {pokemonData.stats.map(({ name, baseStat }) => (
                     <BaseStat
                       key={name}
                       valueStat={baseStat}
                       nameStat={name}
-                      type={pokemon.types[0]}
+                      type={pokemonData.types[0]}
                     />
                   ))}
                 </tbody>
@@ -210,37 +97,37 @@ const DetailPage = () => {
           </Section>
           <Section title="설명" width="w-full">
             <p className="text-md leading-4   max-w-[30rem] text-center text-slate-800 dark:text-zinc-200">
-              {pokemon.description}
+              {pokemonData.description}
             </p>
           </Section>
 
           <section className="flex my-8 flex-wrap justify-center">
-            {pokemon.sprites.map((url, index) => (
+            {pokemonData.sprites.map((url, index) => (
               <div className="hover:translate-y-2	duration-100">
                 <img key={url} src={url} alt="sprite" />
               </div>
             ))}
           </section>
         </div>
-        {pokemon.prevPokemon && (
+        {pokemonData.prevPokemon && (
           <Link
             className="absolute top-[40%] -translate-y-1/2 z-50 left-3"
-            to={`/pokemon/${pokemon.prevPokemon}`}
+            to={`/pokemon/${pokemonData.prevPokemon}`}
           >
             <LessThan className="w-5 h-8 p-1" />
           </Link>
         )}
-        {pokemon.nextPokemon && (
+        {pokemonData.nextPokemon && (
           <Link
             className="absolute top-[40%] -translate-y-1/2 z-50 right-3"
-            to={`/pokemon/${pokemon.nextPokemon}`}
+            to={`/pokemon/${pokemonData.nextPokemon}`}
           >
             <GreaterThan className="w-5 h-8 p-1" />
           </Link>
         )}
         {isModalOpen && (
           <DamageModal
-            damages={pokemon?.damageRelations}
+            damages={pokemonData?.damageRelations}
             open={isModalOpen}
             setIsModalOpen={setIsModalOpen}
           />

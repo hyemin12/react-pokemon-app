@@ -10,6 +10,7 @@ export interface FormattedPokemonData {
   types: string[];
   sprites: string[];
   description: string;
+  representativeType?: string;
 }
 
 export interface DamageRelation {
