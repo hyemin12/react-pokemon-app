@@ -74,7 +74,7 @@ export default {
       },
       fontFamily: {
         PocketMonk: ["pocketMonk"],
-        Maplestory: ["maplestory"],
+        pretendard: ["pretendard"],
       },
     },
   },

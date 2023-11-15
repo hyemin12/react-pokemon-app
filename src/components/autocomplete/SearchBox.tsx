@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { PokemonNameAndUrl } from "../types/PokemonData";
+import { PokemonNameAndUrl } from "../../types/PokemonData";
 import AutoComplete from "./AutoComplete";
 
 interface AutoCompleteProps {

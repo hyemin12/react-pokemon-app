@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getPokemonData } from "@/store/pokemons/pokemon.slice";
 import { ArrowLeft } from "@/assets/ArrowLeft";
 import { GreaterThan } from "@/assets/GreaterThan";
 import { LessThan } from "@/assets/LessThan";
-import DamageModal from "@/components/DamageModal";
+import DamageModal from "@/components/damage-modal/DamageModal";
 import LoaderPokeball from "@/components/LoaderPokeball";
 import Section from "./Section";
 import BaseStat from "./BaseStat";
@@ -28,7 +28,7 @@ const DetailPage = () => {
   const bg = `bg-${pokemonData?.types?.[0]}`;
 
   if (isLoading) return <LoaderPokeball />;
-  if (!isLoading && !pokemonData) return <div>NotFound</div>;
+  if (!isLoading && !pokemonData) return <Navigate to="/notfound" />;
 
   if (!isLoading && pokemonData) {
     return (

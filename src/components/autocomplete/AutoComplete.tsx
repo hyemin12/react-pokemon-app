@@ -1,4 +1,4 @@
-import { PokemonNameAndUrl } from "../types/PokemonData";
+import { PokemonNameAndUrl } from "../../types/PokemonData";
 
 interface AutoCompleteProps {
   searchTerm: string;

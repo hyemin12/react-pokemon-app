@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import GeneralLayout from "./components/GeneralLayout";
 import store from "./store";
 import "./App.css";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="pokemon/:id" element={<DetailPage />} />
             <Route path="login" element={<LoginPage />} />
           </Route>
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </Provider>
     </div>

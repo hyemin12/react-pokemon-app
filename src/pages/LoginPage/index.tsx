@@ -12,9 +12,9 @@ const LoginPage = () => {
   const auth = getAuth(app);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const loginHandler = async () => {
     const userRes = await login(auth);
-    console.log(userRes);
     if (!userRes) return alert("로그인에 실패하였습니다.");
     const { displayName, photoURL } = userRes;
     dispatch(logInUser({ displayName, photoURL }));

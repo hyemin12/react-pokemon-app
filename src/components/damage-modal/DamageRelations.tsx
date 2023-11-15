@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Type from "../pages/DetailPage/Type";
-import { DamageRelations as DamageRelationsProps } from "../types/DamageRelationOfPokemonTypes";
+import Type from "../../pages/DetailPage/Type";
+import { DamageRelations as DamageRelationsProps } from "../../types/DamageRelationOfPokemonTypes";
 import {
   Damage,
   DamageFromAndTo,
   SeparateDamages,
-} from "../types/SeparateDamageRelations";
+} from "../../types/SeparateDamageRelations";
 
 interface DamageModalProps {
   damages: DamageRelationsProps[];

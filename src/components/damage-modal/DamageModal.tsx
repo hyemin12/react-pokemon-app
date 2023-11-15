@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import DamageRelations from "./DamageRelations";
-import useOnClickOutSide from "../hooks/useOnClickOutSide";
-import { DamageRelations as DamageRelationsProps } from "../types/DamageRelationOfPokemonTypes";
+import useOnClickOutSide from "../../hooks/useOnClickOutSide";
+import { DamageRelations as DamageRelationsProps } from "../../types/DamageRelationOfPokemonTypes";
 
 interface DamageModalProps {
   open: boolean;
