@@ -33,7 +33,7 @@ const GeneralLayout = () => {
         id="main"
         className={`${
           themeColor === "dark" ? "dark" : "light"
-        } pt-[70px] min-h-main bg-gray-100  dark:bg-gray-800`}
+        } pt-[70px] min-h-main bg-[#e0ddd2]  dark:bg-gray-800`}
         data-mode={themeColor}
       >
         <Outlet />

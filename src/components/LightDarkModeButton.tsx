@@ -1,11 +1,12 @@
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { changeThemeColor } from "@/store/theme/theme.slice";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
-const theme = "dark";
 
 const LightDarkModeButton = () => {
+  const { themeColor } = useAppSelector((state) => state.themeSlice);
   const dispatch = useAppDispatch();
   const toggleChangeThemeColor = (color: string) => {
+    console.log(color, themeColor);
     dispatch(changeThemeColor(color));
   };
   return (
@@ -16,7 +17,7 @@ const LightDarkModeButton = () => {
           border-2 rounded-lg text-sm p-2
       `}
     >
-      {theme === "dark" ? (
+      {themeColor === "dark" ? (
         <MdDarkMode
           onClick={() => toggleChangeThemeColor("light")}
           className="text-white text-lg"
