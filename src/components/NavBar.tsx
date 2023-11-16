@@ -12,7 +12,6 @@ const NavBar = () => {
   const userInfo = useAppSelector((state) => state.userSlice);
   const { pokemonData } = useAppSelector((state) => state.pokemonSlice);
   const representativeType = pokemonData?.representativeType;
-  // const [representativeType] = pokemonData?.types;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
