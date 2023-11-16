@@ -22,12 +22,12 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="bg-[#e0ddd2] min-h-main flex items-center justify-center ">
-      <div className="bg-gray-100 flex flex-col-reverse md:flex-row justify-center md:justify-start  rounded-2xl shadow-lg max-w-4xl py-5 px-11 items-center  text-center md:text-left">
-        <div className="">
-          <h2 className="font-bold text-5xl">Pokemon</h2>
-          <p className="text-m mt-4 text-[#002D74]">포켓몬 사이트에 오신걸</p>
-          <p className="text-m mb-6 text-[#002D74]">환영합니다.</p>
+    <section className="min-h-main flex items-center justify-center bg-[#e0ddd2]  dark:bg-gray-800 ">
+      <div className="bg-gray-100 dark:bg-gray-600 flex flex-col-reverse md:flex-row justify-center md:justify-start  rounded-2xl shadow-lg max-w-4xl py-5 px-11 items-center  text-center md:text-left">
+        <div className="text-gray-800 dark:text-white">
+          <h2 className="font-bold text-5xl ">Pokemon</h2>
+          <p className="text-m mt-4 ">포켓몬 사이트에 오신걸</p>
+          <p className="text-m mb-6 ">환영합니다.</p>
           <Button
             text="로그인 하기"
             actions={loginHandler}

@@ -14,5 +14,6 @@
 @layer base {
   html {
     font-family: "pretendard", system-ui, sans-serif;
+    color: rgb(224 221 210);
   }
 }

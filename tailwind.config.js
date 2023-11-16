@@ -10,7 +10,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        logoBlue: "#3860ab",
         primary: "#ffcb05",
         second: "#3d7dca",
         third: "#003a70",
@@ -78,7 +77,7 @@ export default {
       },
     },
   },
-  safelist: [{ pattern: /bg-.*/ }],
+  safelist: [{ pattern: /bg-.*/ }, { pattern: /text-.*/ }],
   darkMode: ["class", '[data-mode="dark"]'],
   plugins: [require("tailwind-scrollbar")],
 };
