@@ -78,6 +78,7 @@ export default {
       },
     },
   },
+  safelist: [{ pattern: /bg-.*/ }],
   darkMode: ["class", '[data-mode="dark"]'],
   plugins: [require("tailwind-scrollbar")],
 };

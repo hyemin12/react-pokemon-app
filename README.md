@@ -18,6 +18,14 @@ $npm run dev
 
 ---
 
+
+## 기능
+
+- [x] 구글계정을 이용한 회원가입/로그인 기능
+- [x] 
+
+
+
 #### 타입 변경 확인
 
 [https://react-typescript-cheatsheet.netlify.app/](https://react-typescript-cheatsheet.netlify.app/)
