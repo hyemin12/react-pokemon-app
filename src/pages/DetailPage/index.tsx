@@ -34,7 +34,7 @@ const DetailPage = () => {
     return (
       <div className="flex items-center flex-col w-full h-full bg-gray-100  dark:bg-gray-800  relative">
         <header
-          className={`${bg} w-full h-[35vh] relative  rounded-bl-[4em] rounded-br-[4em] px-6 py-3`}
+          className={`${bg} w-full min-h-[33vh] relative  rounded-bl-[4em] rounded-br-[4em] px-6 py-3`}
         >
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center gap-1 text-white">
@@ -111,7 +111,7 @@ const DetailPage = () => {
         </div>
         {pokemonData.prevPokemon && (
           <Link
-            className="absolute top-[40%] -translate-y-1/2 z-50 left-3"
+            className="absolute top-[40%] -translate-y-1/2 z-9 left-3"
             to={`/pokemon/${pokemonData.prevPokemon}`}
           >
             <LessThan className="w-5 h-8 p-1" />
@@ -119,7 +119,7 @@ const DetailPage = () => {
         )}
         {pokemonData.nextPokemon && (
           <Link
-            className="absolute top-[40%] -translate-y-1/2 z-50 right-3"
+            className="absolute top-[40%] -translate-y-1/2 z-9 right-3"
             to={`/pokemon/${pokemonData.nextPokemon}`}
           >
             <GreaterThan className="w-5 h-8 p-1" />
