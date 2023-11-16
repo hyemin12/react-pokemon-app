@@ -59,7 +59,7 @@ const SearchBox = ({
 
   return (
     <div className="relative z-50">
-      <div className="relative  w-[30.5rem] h-10 rounded-lg m-auto mb-3">
+      <div className="relative w-full md:w-[30.5rem] h-10 rounded-lg m-auto mb-3">
         <form
           className="flex justify-center items-center"
           onSubmit={submitHandler}
