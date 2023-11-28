@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Loading } from "../assets/Loading";
+import { Loading } from "../assets/icons/Loading";
 
 interface LazyImgProps {
   src: string;
@@ -22,16 +22,16 @@ const LazyImg = ({ src, alt }: LazyImgProps) => {
   return (
     <>
       {isLoading && (
-        <div className="absolute h-full  z-10 w-full flex items-center justify-center">
-          <Loading className="animate-spin w-14 h-14" />
+        <div className='absolute h-full  z-10 w-full flex items-center justify-center'>
+          <Loading className='animate-spin w-14 h-14' />
         </div>
       )}
       <img
         src={src}
         alt={alt}
-        width="100%"
-        height="auto"
-        loading="lazy"
+        width='100%'
+        height='auto'
+        loading='lazy'
         onLoad={imageLoadHanlder}
         className={`object-contain h-full ${opacity}`}
       />
