@@ -106,27 +106,31 @@
 
 ### ☑️ 시현 영상
 
-#### 로그인 \_ 구글계정을 이용
+#### ■ 로그인 \_ 구글계정을 이용
 
 ![login](https://github.com/hyemin12/react-pokemon-app/assets/66300732/354f3b49-c553-4fc3-afc4-bc520cf89fc0)
 
-#### 다크모드/라이트모드
+#### ■ 다크모드/라이트모드
 
 ![toggleTheme](https://github.com/hyemin12/react-pokemon-app/assets/66300732/280993a1-42ce-4500-9216-b515cfeae3f6)
 
-#### 메인페이지 \_ 더보기 버튼 클릭 시 데이터 더 가져오기
+#### ■ 메인페이지 \_ 더보기 버튼 클릭 시 데이터 더 가져오기
 
 ![mainpage](https://github.com/hyemin12/react-pokemon-app/assets/66300732/a1738a1f-a0be-4b62-9a16-af551d02cbfd)
 
-#### 포켓몬 클릭하여 포켓몬 상세페이지로 이동하기
+#### ■ 메인페이지 \_ 검색 기능 + 자동완성
+
+![search](https://github.com/hyemin12/react-pokemon-app/assets/66300732/ba7044a0-6091-4c30-85af-a42d7d9c44da)
+
+#### ■ 포켓몬 클릭하여 포켓몬 상세페이지로 이동하기
 
 ![moveTodetailPage](https://github.com/hyemin12/react-pokemon-app/assets/66300732/6fb550fa-362a-4209-8a64-22755e8edd6d)
 
-#### 디테일 페이지 \_ 이전,다음 포켓몬 데이터 가져오기
+#### ■ 디테일 페이지 \_ 이전,다음 포켓몬 데이터 가져오기
 
 ![detailpage](https://github.com/hyemin12/react-pokemon-app/assets/66300732/690656b5-52f8-4c79-b6a4-e54040292656)
 
-#### 디테일 페이지 \_ 데미지 모달창 열고 닫기
+#### ■ 디테일 페이지 \_ 데미지 모달창 열고 닫기
 
 ![de_modal](https://github.com/hyemin12/react-pokemon-app/assets/66300732/60efe1cc-b0bb-4a43-9b0c-49f271063de5)
 
