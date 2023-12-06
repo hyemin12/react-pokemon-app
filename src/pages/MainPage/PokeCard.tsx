@@ -43,22 +43,22 @@ const PokeCard = ({ url }: PokemonNameAndUrl) => {
       {pokemon && (
         <Link
           to={"/pokemon/" + pokemon.name}
-          className={`box-border rounded-lg ${border} w-[9rem] h-[9.5rem] z-0 ${bg} justify-between items-center grow hover:-translate-y-2 duration-300`}
+          className={`box-border rounded-lg ${border} z-0 h-[9.5rem] w-[9rem] ${bg} grow items-center justify-between duration-300 hover:-translate-y-2`}
         >
           <div
-            className={`text-white h-[1.5rem] text-xs w-full pt-1 px-2  text-right rounded-t-lg`}
+            className={`h-[1.5rem] w-full rounded-t-lg px-2 pt-1 text-right  text-xs text-white`}
           >
             #{pokemon.id.toString().padStart(3, "00")}
           </div>
-          <div className={`w-full f-6 flex items-center justify-center`}>
+          <div className={`f-6 flex w-full items-center justify-center`}>
             <div
-              className={`box-border relative flex w-full h-[6rem] basis justify-center items-center`}
+              className={`basis relative box-border flex h-[6rem] w-full items-center justify-center`}
             >
               <LazyImg src={img} alt={pokemon.name} />
             </div>
           </div>
           <h4
-            className={`${bg} text-center text-sm text-zinc-100 h-[1.5rem] rounded-b-lg uppercase font-medium  pt-1`}
+            className={`${bg} h-[1.5rem] rounded-b-lg pt-1 text-center text-sm font-medium uppercase  text-zinc-100`}
           >
             {pokemon.name}
           </h4>

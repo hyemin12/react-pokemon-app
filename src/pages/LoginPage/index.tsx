@@ -22,10 +22,10 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="min-h-main flex items-center justify-center bg-[#e0ddd2]  dark:bg-gray-800 ">
-      <div className="bg-gray-100 dark:bg-gray-600 flex flex-col-reverse md:flex-row justify-center md:justify-start  rounded-2xl shadow-lg max-w-4xl py-5 px-11 items-center  text-center md:text-left">
+    <section className="flex min-h-main items-center justify-center bg-[#e0ddd2]  dark:bg-gray-800 ">
+      <div className="flex max-w-4xl flex-col-reverse items-center justify-center rounded-2xl bg-gray-100  px-11 py-5 text-center shadow-lg dark:bg-gray-600 md:flex-row  md:justify-start md:text-left">
         <div className="text-gray-800 dark:text-white">
-          <h2 className="font-bold text-5xl ">Pokemon</h2>
+          <h2 className="text-5xl font-bold ">Pokemon</h2>
           <p className="text-m mt-4 ">포켓몬 사이트에 오신걸</p>
           <p className="text-m mb-6 ">환영합니다.</p>
           <Button
@@ -35,7 +35,7 @@ const LoginPage = () => {
           />
         </div>
 
-        <div className="w-full md:w-1/2 mb-2 md:mb-0 ">
+        <div className="mb-2 w-full md:mb-0 md:w-1/2 ">
           <Lottie
             play
             loop

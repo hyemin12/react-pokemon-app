@@ -12,20 +12,20 @@ const LightDarkModeButton = () => {
   return (
     <button
       className={`
-        bg-transparent
-        w-[30px] h-[30px] flex justify-center items-center
-          border-2 rounded-lg text-sm p-2
+        flex
+        h-[30px] w-[30px] items-center justify-center rounded-lg
+          border-2 bg-transparent p-2 text-sm
       `}
     >
       {themeColor === "dark" ? (
         <MdDarkMode
           onClick={() => toggleChangeThemeColor("light")}
-          className="text-white text-lg"
+          className="text-lg text-white"
         />
       ) : (
         <MdLightMode
           onClick={() => toggleChangeThemeColor("dark")}
-          className="text-white text-lg"
+          className="text-lg text-white"
         />
       )}
     </button>

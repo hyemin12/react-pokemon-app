@@ -8,16 +8,16 @@ const NotFoundPage = () => {
     navigate("/");
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full  min-h-main max-w-[1000px] mx-auto px-7 text-center  text-gray-800 dark:text-white">
-      <div className="w-[400px] mb-4 ">
+    <div className="mx-auto flex min-h-main w-full max-w-[1000px]  flex-col items-center justify-center px-7 text-center  text-gray-800 dark:text-white">
+      <div className="mb-4 w-[400px] ">
         <img src={NotfoundImg} alt="페이지를 찾을 수 없습니다." />
       </div>
 
-      <h1 className="w-full text-3xl md:text-4xl font-bold mb-2 ">
+      <h1 className="mb-2 w-full text-3xl font-bold md:text-4xl ">
         죄송합니다. 페이지를 찾을 수 없습니다.
       </h1>
 
-      <p className=" text-xl mb-6 ">
+      <p className=" mb-6 text-xl ">
         존재하지 않는 주소를 입력하셨거나, 요청하신 페이지의 주소가
         변경,삭제되어 찾을 수 없습니다.
       </p>

@@ -17,7 +17,7 @@ const SearchBox = ({
   const [searchTerm, setSearchTerm] = useState("");
 
   const [validationMessage, setValidationMessage] = useState<string | null>(
-    null
+    null,
   );
 
   const pokemonNamesFilter = (query: string) => {
@@ -54,37 +54,37 @@ const SearchBox = ({
         setValidationMessage("영문만 입력 가능합니다.");
       }
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   return (
     <div className="relative z-50">
-      <div className="relative w-full md:w-[30.5rem] h-10 rounded-lg m-auto mb-3">
+      <div className="relative m-auto mb-3 h-10 w-full rounded-lg md:w-[30.5rem]">
         <form
-          className="flex justify-center items-center"
+          className="flex items-center justify-center"
           onSubmit={submitHandler}
         >
           <input
             type="text"
             value={searchTerm}
             onChange={searchTermOnChange}
-            className="text-lg w-full md:w-[30.5rem] h-10 px-2 py-1 bg-white  dark:bg-[hsl(214,13%,47%)] rounded-2xl  dark:text-gray-300 text-slate-900 text-center"
+            className="h-10 w-full rounded-2xl bg-white px-2 py-1 text-center  text-lg text-slate-900  dark:bg-[hsl(214,13%,47%)] dark:text-gray-300 md:w-[30.5rem]"
             required
           />
           <button
             type="submit"
-            className="text-xs bg-slate-900 text-slate-300 w-[3rem] h-10 px-2 py-1 rounded-r-2xl text-center absolute right-0 hover:bg-slate-700"
+            className="absolute right-0 h-10 w-[3rem] rounded-r-2xl bg-slate-900 px-2 py-1 text-center text-xs text-slate-300 hover:bg-slate-700"
           >
             검색
           </button>
         </form>
         {validationMessage && (
-          <span className="text-rose-500 text-sm">{validationMessage}</span>
+          <span className="text-sm text-rose-500">{validationMessage}</span>
         )}
       </div>
       {equalNameCheck(searchTerm).length > 0 && (
         <div
-          className={`w-full flex bottom-0 h-0 flex-col absolute justify-center items-center translate-y-2`}
+          className={`absolute bottom-0 flex h-0 w-full translate-y-2 flex-col items-center justify-center`}
         >
           <AutoComplete
             searchTerm={searchTerm}

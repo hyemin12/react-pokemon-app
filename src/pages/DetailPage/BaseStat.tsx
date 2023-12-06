@@ -29,7 +29,7 @@ const BaseStat = ({ valueStat, nameStat, type }: BaseStatProps) => {
   }, []);
   return (
     <tr className="w-full ">
-      <td className="sm:px-5 w-[30px]  text-slate-800 dark:text-zinc-200 py-1.5">
+      <td className="w-[30px] py-1.5  text-slate-800 dark:text-zinc-200 sm:px-5">
         <p>{nameStat}</p>
       </td>
       <td>

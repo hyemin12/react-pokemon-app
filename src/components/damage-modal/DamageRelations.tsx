@@ -21,7 +21,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
 
   useEffect(() => {
     const arrayDamage = damages.map((damage) =>
-      separateObjectBetweenToAndFrom(damage)
+      separateObjectBetweenToAndFrom(damage),
     );
 
     if (arrayDamage.length >= 2) {
@@ -33,7 +33,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
   }, []);
 
   const separateObjectBetweenToAndFrom = (
-    damage: DamageRelationsProps
+    damage: DamageRelationsProps,
   ): DamageFromAndTo => {
     const from = filterDamageRelations("_from", damage);
     const to = filterDamageRelations("_to", damage);
@@ -46,7 +46,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
 
   const filterDamageRelations = (
     valueFilter: string,
-    damage: DamageRelationsProps
+    damage: DamageRelationsProps,
   ) => {
     const result: SeparateDamages = Object.entries(damage)
       .filter(([keyName, _]) => keyName.includes(valueFilter))
@@ -77,7 +77,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
 
         return (acc = { [keyName]: result, ...acc });
       },
-      {}
+      {},
     );
 
     return result;
@@ -101,7 +101,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
   //  중복 제거
   const filterForUniqueValues = (
     valueForFiltering: Damage[],
-    damageValue: string
+    damageValue: string,
   ) => {
     const initialArray: Damage[] = [];
 
@@ -135,7 +135,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
   };
 
   return (
-    <div className="flex gap-2 flex-col w-full">
+    <div className="flex w-full flex-col gap-2">
       {damagePokemon ? (
         <>
           {Object.entries(damagePokemon).map(
@@ -149,10 +149,10 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
               };
               return (
                 <div key={key}>
-                  <h3 className=" capitalize font-medium text-sm md:text-base text-slate-500 text-center">
+                  <h3 className=" text-center text-sm font-medium capitalize text-slate-500 md:text-base">
                     {valuesOfKeyName[key]}
                   </h3>
-                  <div className="flex flex-wrap gap-1 justify-center ">
+                  <div className="flex flex-wrap justify-center gap-1 ">
                     {value.length > 0 ? (
                       value.map(({ name, url, damageValue }) => {
                         return (
@@ -169,7 +169,7 @@ const DamageRelations = ({ damages }: DamageModalProps) => {
                   </div>
                 </div>
               );
-            }
+            },
           )}
         </>
       ) : null}

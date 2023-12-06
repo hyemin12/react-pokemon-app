@@ -26,7 +26,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 h-[70px] flex justify-between shrink-0	 items-center px-[36px] tracking-[16px] z-[100]      
+      className={`fixed left-0 right-0 top-0 z-[100] flex h-[70px] shrink-0	 items-center justify-between px-[36px] tracking-[16px]      
       ${
         pathname.includes("pokemon") && representativeType
           ? `bg-${representativeType}`
@@ -36,17 +36,17 @@ const NavBar = () => {
       `}
     >
       <Logo />
-      <div className="flex gap-5 items-center">
+      <div className="flex items-center gap-5">
         <LightDarkModeButton />
 
         {pathname !== "/login" && userInfo ? (
           <div
-            className="relative flex items-center justify-center w-[48px] h-[48px] hover:opacity-1 duration-100 peer cursor-pointer "
+            className="hover:opacity-1 peer relative flex h-[48px] w-[48px] cursor-pointer items-center justify-center duration-100 "
             onClick={logoutHandler}
           >
             {userInfo?.photoURL && (
               <img
-                className="w-full h-full rounded-[50%]"
+                className="h-full w-full rounded-[50%]"
                 alt="user photo"
                 src={userInfo?.photoURL}
               />

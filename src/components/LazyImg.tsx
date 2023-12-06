@@ -22,18 +22,18 @@ const LazyImg = ({ src, alt }: LazyImgProps) => {
   return (
     <>
       {isLoading && (
-        <div className='absolute h-full  z-10 w-full flex items-center justify-center'>
-          <Loading className='animate-spin w-14 h-14' />
+        <div className="absolute z-10  flex h-full w-full items-center justify-center">
+          <Loading className="h-14 w-14 animate-spin" />
         </div>
       )}
       <img
         src={src}
         alt={alt}
-        width='100%'
-        height='auto'
-        loading='lazy'
+        width="100%"
+        height="auto"
+        loading="lazy"
         onLoad={imageLoadHanlder}
-        className={`object-contain h-full ${opacity}`}
+        className={`h-full object-contain ${opacity}`}
       />
     </>
   );
